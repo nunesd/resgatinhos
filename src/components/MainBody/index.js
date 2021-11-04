@@ -9,7 +9,7 @@ import { Container } from "./styles";
 
 const mdTheme = createTheme();
 
-const Dashboard = ({ title, children }) => {
+const MainBody = ({ title, children }) => {
   const [open, setOpen] = useState(false);
 
   const toggleDrawer = () => {
@@ -42,4 +42,4 @@ const Dashboard = ({ title, children }) => {
   );
 };
 
-export default Dashboard;
+export default MainBody;
