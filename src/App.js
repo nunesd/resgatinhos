@@ -1,4 +1,6 @@
 import React, { createContext, useState } from "react";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import Routes from "./components/Routes/Routes";
 import useLocalStorageState from "./helpers/localStorage";
 
@@ -23,7 +25,9 @@ const App = () => {
 
   return (
     <Context.Provider value={state}>
-      <Routes />
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <Routes />
+      </LocalizationProvider>
     </Context.Provider>
   );
 };

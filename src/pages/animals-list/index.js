@@ -69,11 +69,11 @@ const rows = [
   ),
 ];
 
-const Vaccines = () => {
+const Animals = () => {
   const handleChange = () => {};
 
   return (
-    <MainBody title="Vacinas">
+    <MainBody title="Animais">
       <Container>
         <Header>
           <FormControl fullWidth sx={{ p: 0.1, mb: 3, display: "flex" }}>
@@ -161,4 +161,4 @@ const Vaccines = () => {
   );
 };
 
-export default Vaccines;
+export default Animals;
