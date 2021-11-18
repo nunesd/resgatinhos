@@ -7,8 +7,6 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { useTheme } from "@material-ui/core/styles";
-
-import { Link } from "react-router-dom";
 import { Add } from "@mui/icons-material";
 import MainBody from "../../components/MainBody";
 
@@ -20,37 +18,23 @@ const AddressForm = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
-  const handleChange = () => {};
+  const handleSubmit = () => {};
 
   return (
-    <MainBody title="Cadastro de Adotante">
+    <MainBody
+      title="Cadastro de Adotante"
+      component="form"
+      onSubmit={handleSubmit}
+    >
       <Grid container spacing={3}>
         <Grid item xs={12} md={6} lg={4}>
-          <TextField
-            variant="outlined"
-            fullWidth
-            label="Primeiro Nome"
-            value=""
-            onChange={handleChange("amount")}
-          />
+          <TextField variant="outlined" fullWidth label="Primeiro Nome" />
         </Grid>
         <Grid item xs={12} md={6} lg={4}>
-          <TextField
-            variant="outlined"
-            fullWidth
-            label="Ultimo Nome"
-            value=""
-            onChange={handleChange("amount")}
-          />
+          <TextField variant="outlined" fullWidth label="Ultimo Nome" />
         </Grid>
         <Grid item xs={12} md={6} lg={4}>
-          <TextField
-            variant="outlined"
-            fullWidth
-            label="CPF"
-            value=""
-            onChange={handleChange("amount")}
-          />
+          <TextField variant="outlined" fullWidth label="CPF" />
         </Grid>
         <Grid item xs={12} md={6} lg={4}>
           <TextField
@@ -58,8 +42,6 @@ const AddressForm = () => {
             fullWidth
             label="Nome de usuário"
             helperText="Nome no qual será usado para fazer o login"
-            value=""
-            onChange={handleChange("amount")}
           />
         </Grid>
         <Grid item xs={12} md={12} lg={4}>
@@ -68,8 +50,6 @@ const AddressForm = () => {
             fullWidth
             type="password"
             label="Senha"
-            value=""
-            onChange={handleChange("amount")}
           />
         </Grid>
         <Grid item xs={12} sx={{ display: "flex", justifyContent: "flex-end" }}>
@@ -81,8 +61,7 @@ const AddressForm = () => {
               ...(isMobile && { width: "100%" }),
             }}
             variant="contained"
-            component={Link}
-            to="/"
+            type="submit"
           >
             Criar
             <Add />
