@@ -1,6 +1,15 @@
 import React from "react";
 import { styled } from "@mui/material/styles";
-import { TextField, Grid as MaterialGrid } from "@mui/material";
+import {
+  TextField,
+  Grid as MaterialGrid,
+  Button,
+  useMediaQuery,
+} from "@mui/material";
+import { useTheme } from "@material-ui/core/styles";
+
+import { Link } from "react-router-dom";
+import { Add } from "@mui/icons-material";
 import MainBody from "../../components/MainBody";
 
 const Grid = styled(MaterialGrid)(({ theme }) => ({
@@ -8,7 +17,11 @@ const Grid = styled(MaterialGrid)(({ theme }) => ({
 }));
 
 const AddressForm = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
   const handleChange = () => {};
+
   return (
     <MainBody title="Cadastro de Adotante">
       <Grid container spacing={3}>
@@ -58,6 +71,22 @@ const AddressForm = () => {
             value=""
             onChange={handleChange("amount")}
           />
+        </Grid>
+        <Grid item xs={12} sx={{ display: "flex", justifyContent: "flex-end" }}>
+          <Button
+            sx={{
+              ml: 0.5,
+              width: "100px",
+              height: "56px",
+              ...(isMobile && { width: "100%" }),
+            }}
+            variant="contained"
+            component={Link}
+            to="/"
+          >
+            Criar
+            <Add />
+          </Button>
         </Grid>
       </Grid>
     </MainBody>
