@@ -10,6 +10,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Context } from "../../App";
 import { Link as RouterLink } from "react-router-dom";
+import api from "../../api";
 
 const theme = createTheme({});
 
@@ -21,10 +22,21 @@ const Login = () => {
     const data = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
     console.log({
-      email: data.get("email"),
+      username: data.get("email"),
       password: data.get("password"),
     });
-    setGeneralState({ logged: true });
+
+    api("/login", {
+      method: "POST",
+      body: JSON.stringify({
+        username: data.get("email"),
+        password: data.get("password"),
+      }),
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        setGeneralState({ logged: true });
+      });
   };
 
   return (
@@ -78,7 +90,7 @@ const Login = () => {
             </Button>
             <Grid container>
               <Grid item>
-                <Link component={RouterLink} to="/account" variant="body2">
+                <Link component={RouterLink} to="/add/user" variant="body2">
                   Não tem conta? Crie uma!
                 </Link>
               </Grid>

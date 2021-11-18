@@ -6,9 +6,26 @@ const Route = (props) => {
   const { path } = props;
   const { generalState } = useContext(Context);
 
-  return generalState.logged || path === "/login" ? (
-    <RouterRoute {...props} />
-  ) : (
+  if (generalState.logged) {
+    if (path !== "/login") {
+      return <RouterRoute {...props} />;
+    }
+
+    return (
+      <Redirect
+        to={{
+          pathname: "/",
+          state: { from: props.location }, //eslint-disable-line
+        }}
+      />
+    );
+  }
+
+  if (path === "/login") {
+    return <RouterRoute {...props} />;
+  }
+
+  return (
     <Redirect
       to={{
         pathname: "/login",

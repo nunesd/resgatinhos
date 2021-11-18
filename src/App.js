@@ -14,7 +14,7 @@ const App = () => {
   const [generalState, setState] = useState({ logged: isLogged });
 
   const setGeneralState = (newState) => {
-    if (newState.logged) {
+    if (newState.logged !== undefined) {
       setIsLogged(newState.logged);
     }
 
