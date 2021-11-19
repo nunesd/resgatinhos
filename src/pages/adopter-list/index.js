@@ -22,44 +22,45 @@ import MainBody from "../../components/MainBody";
 import { TableContainer, Container, StyledTableCell, Header } from "./styles";
 import api from "../../api";
 
-const Vaccines = () => {
-  const [vaccines, setVaccines] = useState([]);
-  const [allVaccines, setAllVaccines] = useState([]);
+const Adopters = () => {
+  const [adopters, setAdopters] = useState([]);
+  const [allAdopters, setAllAdopters] = useState([]);
   const [filterText, setFilterText] = useState("");
 
   const onFilter = ({ target: { value: name } }) => {
     console.log(name);
     setFilterText(name);
     if (!name) {
-      setVaccines(allVaccines);
+      setAdopters(allAdopters);
       return;
     }
-    setVaccines(
-      allVaccines.filter((item) =>
-        item.vaccineName.toLowerCase().includes(name.toLowerCase())
+    setAdopters(
+      allAdopters.filter((item) =>
+        item.firstName.toLowerCase().includes(name.toLowerCase())
       )
     );
   };
 
   useEffect(() => {
-    api("/vaccine", {})
+    api("/adopter", {})
       .then((data) => data.json())
       .then((data) => {
-        setVaccines(data);
-        setAllVaccines(data);
+        console.log(data);
+        setAdopters(data);
+        setAllAdopters(data);
       });
   }, []);
 
   return (
-    <MainBody title="Vacinas">
+    <MainBody title="Adotantes">
       <Container>
         <Header>
           <FormControl fullWidth sx={{ p: 0.1, mb: 3, display: "flex" }}>
             <InputLabel htmlFor="outlined-adornment-amount">
-              Procurar vacinas
+              Procurar adotantes
             </InputLabel>
             <OutlinedInput
-              label="Procurar vacinas"
+              label="Procurar adotantes"
               value={filterText}
               onChange={onFilter}
               startAdornment={
@@ -85,11 +86,13 @@ const Vaccines = () => {
               <TableRow>
                 <TableCell padding="checkbox" />
                 <StyledTableCell>Nome</StyledTableCell>
+                <StyledTableCell>Sobrenome</StyledTableCell>
+                <StyledTableCell>Telefone</StyledTableCell>
                 <TableCell padding="checkbox" />
               </TableRow>
             </TableHead>
             <TableBody>
-              {vaccines.map((row) => (
+              {adopters.map((row) => (
                 <TableRow key={row.id}>
                   <TableCell padding="checkbox">
                     <IconButton
@@ -101,7 +104,9 @@ const Vaccines = () => {
                       <OpenInNew />
                     </IconButton>
                   </TableCell>
-                  <TableCell>{row.vaccineName}</TableCell>
+                  <TableCell>{row.firstName}</TableCell>
+                  <TableCell>{row.lastName}</TableCell>
+                  <TableCell>{row.phoneNumber || "-"}</TableCell>
 
                   <TableCell sx={{ display: "flex" }}>
                     <IconButton
@@ -131,4 +136,4 @@ const Vaccines = () => {
   );
 };
 
-export default Vaccines;
+export default Adopters;

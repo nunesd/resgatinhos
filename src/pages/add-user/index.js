@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { styled } from "@mui/material/styles";
 import {
   TextField,
@@ -9,6 +9,8 @@ import {
 import { useTheme } from "@material-ui/core/styles";
 import { Add } from "@mui/icons-material";
 import MainBody from "../../components/MainBody";
+import api from "../../api";
+import { Context } from "../../App";
 
 const Grid = styled(MaterialGrid)(({ theme }) => ({
   maxHeight: "200px",
@@ -17,24 +19,57 @@ const Grid = styled(MaterialGrid)(({ theme }) => ({
 const AddressForm = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const { setGeneralState } = useContext(Context);
 
-  const handleSubmit = () => {};
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+
+    api("/systemAdmin", {
+      method: "POST",
+      body: JSON.stringify({
+        firstName: data.get("firstName"),
+        lastName: data.get("lastName"),
+        cpf: data.get("cpf"),
+        username: data.get("username"),
+        password: data.get("password"),
+      }),
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        setGeneralState({ logged: true });
+      });
+  };
 
   return (
-    <MainBody
-      title="Cadastro de Adotante"
-      component="form"
-      onSubmit={handleSubmit}
-    >
-      <Grid container spacing={3}>
+    <MainBody title="Cadastro de Usuário">
+      <Grid container spacing={3} component="form" onSubmit={handleSubmit}>
         <Grid item xs={12} md={6} lg={4}>
-          <TextField variant="outlined" fullWidth label="Primeiro Nome" />
+          <TextField
+            variant="outlined"
+            fullWidth
+            label="Primeiro Nome"
+            name="firstName"
+            required
+          />
         </Grid>
         <Grid item xs={12} md={6} lg={4}>
-          <TextField variant="outlined" fullWidth label="Ultimo Nome" />
+          <TextField
+            variant="outlined"
+            fullWidth
+            label="Ultimo Nome"
+            name="lastName"
+            required
+          />
         </Grid>
         <Grid item xs={12} md={6} lg={4}>
-          <TextField variant="outlined" fullWidth label="CPF" />
+          <TextField
+            variant="outlined"
+            fullWidth
+            label="CPF"
+            name="cpf"
+            required
+          />
         </Grid>
         <Grid item xs={12} md={6} lg={4}>
           <TextField
@@ -42,6 +77,8 @@ const AddressForm = () => {
             fullWidth
             label="Nome de usuário"
             helperText="Nome no qual será usado para fazer o login"
+            name="username"
+            required
           />
         </Grid>
         <Grid item xs={12} md={12} lg={4}>
@@ -50,6 +87,8 @@ const AddressForm = () => {
             fullWidth
             type="password"
             label="Senha"
+            name="password"
+            required
           />
         </Grid>
         <Grid item xs={12} sx={{ display: "flex", justifyContent: "flex-end" }}>
