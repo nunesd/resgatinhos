@@ -9,6 +9,7 @@ import {
   InputLabel,
   Button,
   useMediaQuery,
+  FormHelperText,
 } from "@mui/material";
 import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
 import { useTheme } from "@material-ui/core/styles";
@@ -41,6 +42,8 @@ const AddAdoption = () => {
     setVaccineSelected(value);
   };
 
+  const haveError = () => !animals.length || !vaccines.length;
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -64,6 +67,9 @@ const AddAdoption = () => {
         .then((data) => data.json())
         .then((data) => {
           setAnimals(data);
+        })
+        .catch(() => {
+          setAnimals([]);
         });
     };
     const getVaccines = async () => {
@@ -71,6 +77,9 @@ const AddAdoption = () => {
         .then((data) => data.json())
         .then((data) => {
           setVaccines(data);
+        })
+        .catch(() => {
+          setVaccines([]);
         });
     };
 
@@ -82,39 +91,53 @@ const AddAdoption = () => {
     <MainBody title="Cadastro de Vacinação">
       <Grid container spacing={3} component="form" onSubmit={handleSubmit}>
         <Grid item xs={12} md={6} lg={4}>
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-helper-label">Animal</InputLabel>
+          <FormControl fullWidth error={!animals.length}>
+            <InputLabel id="demo-simple-select-helper-label">
+              {!animals.length ? "Nenhum animal encontrado" : "Animal"}
+            </InputLabel>
             <Select
               labelId="demo-simple-select-helper-label"
               id="demo-simple-select-helper"
               value={animalSelected}
-              label="Animal"
+              label={!animals.length ? "Nenhum animal encontrado" : "Animal"}
               onChange={handleAnimalSelected}
             >
-              {animals.map((animal) => (
+              {animals?.map((animal) => (
                 <MenuItem key={animal.id} value={animal.id}>
                   {animal.name}
                 </MenuItem>
               ))}
             </Select>
+            {!Boolean(animals.length) && (
+              <FormHelperText>
+                Para criar uma vacinação, é preciso ter uma animal cadastrado
+              </FormHelperText>
+            )}
           </FormControl>
         </Grid>
         <Grid item xs={12} md={6} lg={4}>
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-helper-label">Vacina</InputLabel>
+          <FormControl fullWidth error={!vaccines.length}>
+            <InputLabel id="demo-simple-select-helper-label">
+              {!vaccines.length ? "Nenhum animal encontrado" : "Vacinas"}
+            </InputLabel>
             <Select
               labelId="demo-simple-select-helper-label"
               id="demo-simple-select-helper"
               value={vaccineSelected}
-              label="Vacinas"
+              label={!vaccines.length ? "Nenhum animal encontrado" : "Vacinas"}
               onChange={handleVaccineSelected}
             >
-              {vaccines.map((vaccine) => (
+              {vaccines?.map((vaccine) => (
                 <MenuItem key={vaccine.id} value={vaccine.id}>
                   {vaccine.vaccineName}
                 </MenuItem>
               ))}
             </Select>
+            {!Boolean(vaccines.length) && (
+              <FormHelperText>
+                Para criar uma vacinação, é preciso ter uma vacina cadastrado
+              </FormHelperText>
+            )}
           </FormControl>
         </Grid>
         <Grid item xs={12} md={6} lg={4}>
@@ -157,6 +180,7 @@ const AddAdoption = () => {
             }}
             variant="contained"
             type="submit"
+            disabled={haveError()}
           >
             Criar
             <Add />

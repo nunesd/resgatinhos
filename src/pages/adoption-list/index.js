@@ -37,7 +37,7 @@ const Adoptions = () => {
     }
     setAdoptions(
       allAdoptions?.filter((item) =>
-        item.firstName.toLowerCase().includes(name.toLowerCase())
+        item.animalNewName.toLowerCase().includes(name.toLowerCase())
       )
     );
   };
@@ -46,6 +46,7 @@ const Adoptions = () => {
     api("/adoption", {})
       .then((data) => data.json())
       .then((data) => {
+        console.log(data);
         setAdoptions(data);
         setAllAdoptions(data);
       });
@@ -90,8 +91,8 @@ const Adoptions = () => {
               <TableHead>
                 <TableRow>
                   <TableCell padding="checkbox" />
-                  <StyledTableCell>Nome</StyledTableCell>
-                  <StyledTableCell>Sobrenome</StyledTableCell>
+                  <StyledTableCell>Nome do animal</StyledTableCell>
+                  <StyledTableCell>Adotante</StyledTableCell>
                   <StyledTableCell>Telefone</StyledTableCell>
                   <TableCell padding="checkbox" />
                 </TableRow>
@@ -109,9 +110,9 @@ const Adoptions = () => {
                         <OpenInNew />
                       </IconButton>
                     </TableCell>
-                    <TableCell>{row.firstName}</TableCell>
-                    <TableCell>{row.lastName}</TableCell>
-                    <TableCell>{row.phoneNumber || "-"}</TableCell>
+                    <TableCell>{row.animalNewName}</TableCell>
+                    <TableCell>{row.adopter?.firstName}</TableCell>
+                    <TableCell>{row.adopter.phoneNumber || "-"}</TableCell>
 
                     <TableCell sx={{ display: "flex" }}>
                       <IconButton

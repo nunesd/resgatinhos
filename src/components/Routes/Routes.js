@@ -12,6 +12,7 @@ import AddVaccination from "../../pages/add-vaccination";
 import AddUser from "../../pages/add-user";
 import AdoptionList from "../../pages/adoption-list";
 import AttendanceList from "../../pages/attendance-list";
+import AddAttendance from "../../pages/add-attendance";
 
 const Routes = () => {
   return (
@@ -27,6 +28,7 @@ const Routes = () => {
       <Route exact path="/add/vaccine" render={() => <AddVaccine />} />
       <Route exact path="/add/vaccination" render={() => <AddVaccination />} />
       <Route exact path="/add/user" render={() => <AddUser />} />
+      <Route exact path="/add/attendance" render={() => <AddAttendance />} />
       <Route exact path="/" render={() => <Vaccines />} />
       <Route exact path="*" render={() => <div>Página não encontrada</div>} />
     </Switch>

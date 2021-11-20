@@ -16,7 +16,7 @@ const Grid = styled(MaterialGrid)(({ theme }) => ({
   maxHeight: "200px",
 }));
 
-const AddressForm = () => {
+const AddUser = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const { setGeneralState } = useContext(Context);
@@ -111,4 +111,4 @@ const AddressForm = () => {
   );
 };
 
-export default AddressForm;
+export default AddUser;

@@ -10,6 +10,7 @@ import {
   useMediaQuery,
   useTheme,
   Button,
+  FormHelperText,
 } from "@mui/material";
 import MainBody from "../../components/MainBody";
 import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
@@ -42,6 +43,8 @@ const AddAdoption = () => {
     setAdopterSelected(value);
   };
 
+  const haveError = () => !animals.length || !adopters.length;
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -65,6 +68,9 @@ const AddAdoption = () => {
         .then((data) => data.json())
         .then((data) => {
           setAnimals(data);
+        })
+        .catch(() => {
+          setAnimals([]);
         });
     };
     const getAdopters = async () => {
@@ -72,6 +78,9 @@ const AddAdoption = () => {
         .then((data) => data.json())
         .then((data) => {
           setAdopters(data);
+        })
+        .catch(() => {
+          setAdopters([]);
         });
     };
 
@@ -83,13 +92,15 @@ const AddAdoption = () => {
     <MainBody title="Cadastro de Adoção">
       <Grid container spacing={3} component="form" onSubmit={handleSubmit}>
         <Grid item xs={12} md={6} lg={4}>
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-helper-label">Animal</InputLabel>
+          <FormControl fullWidth error={!animals.length}>
+            <InputLabel id="demo-simple-select-helper-label">
+              {!!animals.length ? "Nenhum animal encontrado" : "Animal"}
+            </InputLabel>
             <Select
               labelId="demo-simple-select-helper-label"
               id="demo-simple-select-helper"
               value={animalSelected}
-              label="Animal"
+              label={!animals.length ? "Nenhum animal encontrado" : "Animal"}
               onChange={handleAnimalSelected}
             >
               {animals.map((animal) => (
@@ -98,18 +109,25 @@ const AddAdoption = () => {
                 </MenuItem>
               ))}
             </Select>
+            {!Boolean(animals.length) && (
+              <FormHelperText>
+                Para criar uma adoção, é preciso ter uma animal cadastrado
+              </FormHelperText>
+            )}
           </FormControl>
         </Grid>
         <Grid item xs={12} md={6} lg={4}>
-          <FormControl fullWidth>
+          <FormControl fullWidth error={!adopters.length}>
             <InputLabel id="demo-simple-select-helper-label">
-              Adotante
+              {!adopters.length ? "Nenhum adotante encontrado" : "Adotante"}
             </InputLabel>
             <Select
               labelId="demo-simple-select-helper-label"
               id="demo-simple-select-helper"
               value={adopterSelected}
-              label="Adotante"
+              label={
+                !adopters.length ? "Nenhum adotante encontrado" : "Adotante"
+              }
               onChange={handleAdopterSelected}
             >
               {adopters.map((adopter) => (
@@ -118,6 +136,12 @@ const AddAdoption = () => {
                 </MenuItem>
               ))}
             </Select>
+
+            {!Boolean(adopters.length) && (
+              <FormHelperText>
+                Para criar uma adoção, é preciso ter uma adotante cadastrado
+              </FormHelperText>
+            )}
           </FormControl>
         </Grid>
         <Grid item xs={12} md={6} lg={4}>
@@ -159,6 +183,7 @@ const AddAdoption = () => {
             }}
             variant="contained"
             type="submit"
+            disabled={haveError()}
           >
             Criar
             <Add />
