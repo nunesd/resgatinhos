@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import {
   TextField,
@@ -7,9 +7,14 @@ import {
   MenuItem,
   FormControl as MaterialFormControl,
   InputLabel,
+  useMediaQuery,
+  useTheme,
+  Button,
 } from "@mui/material";
 import MainBody from "../../components/MainBody";
 import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
+import api from "../../api";
+import Add from "@mui/icons-material/Add";
 
 const Grid = styled(MaterialGrid)(({ theme }) => ({
   maxHeight: "200px",
@@ -20,26 +25,78 @@ const FormControl = styled(MaterialFormControl)(({ theme }) => ({
 }));
 
 const AddAdoption = () => {
-  const handleChange = () => {};
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
+  const [animals, setAnimals] = useState([]);
+  const [adopters, setAdopters] = useState([]);
+  const [animalSelected, setAnimalSelected] = useState();
+  const [adopterSelected, setAdopterSelected] = useState();
+  const [date, setDate] = useState(new Date());
+
+  const handleAnimalSelected = ({ target: { value } }) => {
+    setAnimalSelected(value);
+  };
+
+  const handleAdopterSelected = ({ target: { value } }) => {
+    setAdopterSelected(value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    api(`/adoption/animal/${animalSelected}/adopter/${adopterSelected}`, {
+      method: "POST",
+      body: JSON.stringify({
+        animalStatus: data.get("animalStatus"),
+        animalNewName: data.get("animalNewName"),
+        adoptionDate: date.toLocaleDateString(),
+      }),
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        // setGeneralState({ logged: true });
+      });
+  };
+
+  useEffect(() => {
+    const getAnimals = async () => {
+      await api("/animal", {})
+        .then((data) => data.json())
+        .then((data) => {
+          setAnimals(data);
+        });
+    };
+    const getAdopters = async () => {
+      await api("/adopter", {})
+        .then((data) => data.json())
+        .then((data) => {
+          setAdopters(data);
+        });
+    };
+
+    getAnimals();
+    getAdopters();
+  }, []);
+
   return (
     <MainBody title="Cadastro de Adoção">
-      <Grid container spacing={3}>
+      <Grid container spacing={3} component="form" onSubmit={handleSubmit}>
         <Grid item xs={12} md={6} lg={4}>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-helper-label">Animal</InputLabel>
             <Select
               labelId="demo-simple-select-helper-label"
               id="demo-simple-select-helper"
-              value={""}
+              value={animalSelected}
               label="Animal"
-              onChange={handleChange}
+              onChange={handleAnimalSelected}
             >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              {animals.map((animal) => (
+                <MenuItem key={animal.id} value={animal.id}>
+                  {animal.name}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
         </Grid>
@@ -51,16 +108,15 @@ const AddAdoption = () => {
             <Select
               labelId="demo-simple-select-helper-label"
               id="demo-simple-select-helper"
-              value={""}
+              value={adopterSelected}
               label="Adotante"
-              onChange={handleChange}
+              onChange={handleAdopterSelected}
             >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              {adopters.map((adopter) => (
+                <MenuItem key={adopter.id} value={adopter.id}>
+                  {adopter.firstName}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
         </Grid>
@@ -68,17 +124,18 @@ const AddAdoption = () => {
           <TextField
             variant="outlined"
             fullWidth
+            name="animalNewName"
             label="Novo nome"
-            value=""
-            onChange={handleChange("amount")}
           />
         </Grid>
         <Grid item xs={12} md={6} lg={4}>
           <DesktopDatePicker
             label="Date desktop"
             inputFormat="dd/MM/yyyy"
-            value={new Date()}
-            onChange={handleChange}
+            value={date}
+            onChange={(date) => {
+              setDate(date);
+            }}
             renderInput={(params) => <TextField {...params} />}
           />
         </Grid>
@@ -87,11 +144,25 @@ const AddAdoption = () => {
             variant="outlined"
             fullWidth
             label="Status"
-            value=""
+            name="animalStatus"
             multiline
             rows={4}
-            onChange={handleChange("amount")}
           />
+        </Grid>
+        <Grid item xs={12} sx={{ display: "flex", justifyContent: "flex-end" }}>
+          <Button
+            sx={{
+              ml: 0.5,
+              width: "100px",
+              height: "56px",
+              ...(isMobile && { width: "100%" }),
+            }}
+            variant="contained"
+            type="submit"
+          >
+            Criar
+            <Add />
+          </Button>
         </Grid>
       </Grid>
     </MainBody>

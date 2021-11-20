@@ -23,49 +23,49 @@ import { TableContainer, Container, StyledTableCell, Header } from "./styles";
 import api from "../../api";
 import NoContent from "../../components/NoContent";
 
-const Adopters = () => {
-  const [adopters, setAdopters] = useState([]);
-  const [allAdopters, setAllAdopters] = useState([]);
+const Attendances = () => {
+  const [attendances, setAttendances] = useState([]);
+  const [allAttendances, setAllAttendances] = useState();
   const [filterText, setFilterText] = useState("");
 
   const onFilter = ({ target: { value: name } }) => {
     console.log(name);
     setFilterText(name);
     if (!name) {
-      setAdopters(allAdopters);
+      setAttendances(allAttendances);
       return;
     }
-    setAdopters(
-      allAdopters.filter((item) =>
-        item.firstName.toLowerCase().includes(name.toLowerCase())
+    setAttendances(
+      allAttendances?.filter((item) =>
+        item.animal.name.toLowerCase().includes(name.toLowerCase())
       )
     );
   };
 
   useEffect(() => {
-    api("/adopter", {})
+    api("/attendance", {})
       .then((data) => data.json())
       .then((data) => {
         console.log(data);
-        setAdopters(data);
-        setAllAdopters(data);
+        setAttendances(data);
+        setAllAttendances(data);
       });
   }, []);
 
   return (
-    <MainBody title="Adotantes">
+    <MainBody title="Atendimentos">
       <Container>
         <Header>
           <FormControl fullWidth sx={{ p: 0.1, mb: 3, display: "flex" }}>
             <InputLabel htmlFor="outlined-adornment-amount">
-              Procurar adotantes
+              Procurar atendimentos
             </InputLabel>
             <OutlinedInput
-              label="Procurar adotantes"
+              label="Procurar atendimentos"
               value={filterText}
               onChange={onFilter}
-              disabled={allAdopters?.length === 0}
-              placeholder={allAdopters?.length === 0 && "Bloqueado"}
+              disabled={allAttendances?.length === 0}
+              placeholder={allAttendances?.length === 0 && "Bloqueado"}
               startAdornment={
                 <InputAdornment position="start">
                   <Search />
@@ -73,7 +73,7 @@ const Adopters = () => {
               }
             />
           </FormControl>
-          <Link as={Link} to="/add/adopter">
+          <Link as={Link} to="/add/attendance">
             <Button
               sx={{ ml: 0.5, width: "100px", height: "56px" }}
               variant="contained"
@@ -84,7 +84,7 @@ const Adopters = () => {
           </Link>
         </Header>
         <TableContainer>
-          {allAdopters?.length === 0 ? (
+          {allAttendances?.length === 0 ? (
             <NoContent />
           ) : (
             <Table size="medium">
@@ -92,13 +92,12 @@ const Adopters = () => {
                 <TableRow>
                   <TableCell padding="checkbox" />
                   <StyledTableCell>Nome</StyledTableCell>
-                  <StyledTableCell>Sobrenome</StyledTableCell>
-                  <StyledTableCell>Telefone</StyledTableCell>
+                  <StyledTableCell>Veterinário</StyledTableCell>
                   <TableCell padding="checkbox" />
                 </TableRow>
               </TableHead>
               <TableBody>
-                {adopters.map((row) => (
+                {attendances.map((row) => (
                   <TableRow key={row.id}>
                     <TableCell padding="checkbox">
                       <IconButton
@@ -110,16 +109,15 @@ const Adopters = () => {
                         <OpenInNew />
                       </IconButton>
                     </TableCell>
-                    <TableCell>{row.firstName}</TableCell>
-                    <TableCell>{row.lastName}</TableCell>
-                    <TableCell>{row.phoneNumber || "-"}</TableCell>
+                    <TableCell>{row.animal.name}</TableCell>
+                    <TableCell>{row.vetName}</TableCell>
 
                     <TableCell sx={{ display: "flex" }}>
                       <IconButton
                         aria-label="expand row"
                         size="small"
                         as={Link}
-                        to={`/edit/adopter/${row.id}`}
+                        to={`/edit/attendance/${row.id}`}
                       >
                         <Edit />
                       </IconButton>
@@ -127,7 +125,7 @@ const Adopters = () => {
                         aria-label="expand row"
                         size="small"
                         as={Link}
-                        to={`/edit/${row.id}`}
+                        to={`/edit/attendance/${row.id}`}
                       >
                         <Delete />
                       </IconButton>
@@ -143,4 +141,4 @@ const Adopters = () => {
   );
 };
 
-export default Adopters;
+export default Attendances;

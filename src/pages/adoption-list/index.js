@@ -23,49 +23,48 @@ import { TableContainer, Container, StyledTableCell, Header } from "./styles";
 import api from "../../api";
 import NoContent from "../../components/NoContent";
 
-const Adopters = () => {
-  const [adopters, setAdopters] = useState([]);
-  const [allAdopters, setAllAdopters] = useState([]);
+const Adoptions = () => {
+  const [adoptions, setAdoptions] = useState([]);
+  const [allAdoptions, setAllAdoptions] = useState();
   const [filterText, setFilterText] = useState("");
 
   const onFilter = ({ target: { value: name } }) => {
     console.log(name);
     setFilterText(name);
     if (!name) {
-      setAdopters(allAdopters);
+      setAdoptions(allAdoptions);
       return;
     }
-    setAdopters(
-      allAdopters.filter((item) =>
+    setAdoptions(
+      allAdoptions?.filter((item) =>
         item.firstName.toLowerCase().includes(name.toLowerCase())
       )
     );
   };
 
   useEffect(() => {
-    api("/adopter", {})
+    api("/adoption", {})
       .then((data) => data.json())
       .then((data) => {
-        console.log(data);
-        setAdopters(data);
-        setAllAdopters(data);
+        setAdoptions(data);
+        setAllAdoptions(data);
       });
   }, []);
 
   return (
-    <MainBody title="Adotantes">
+    <MainBody title="Adoções">
       <Container>
         <Header>
           <FormControl fullWidth sx={{ p: 0.1, mb: 3, display: "flex" }}>
             <InputLabel htmlFor="outlined-adornment-amount">
-              Procurar adotantes
+              Procurar adoções
             </InputLabel>
             <OutlinedInput
-              label="Procurar adotantes"
+              label="Procurar adoções"
               value={filterText}
               onChange={onFilter}
-              disabled={allAdopters?.length === 0}
-              placeholder={allAdopters?.length === 0 && "Bloqueado"}
+              disabled={allAdoptions?.length === 0}
+              placeholder={allAdoptions?.length === 0 && "Bloqueado"}
               startAdornment={
                 <InputAdornment position="start">
                   <Search />
@@ -73,7 +72,7 @@ const Adopters = () => {
               }
             />
           </FormControl>
-          <Link as={Link} to="/add/adopter">
+          <Link as={Link} to="/add/adoption">
             <Button
               sx={{ ml: 0.5, width: "100px", height: "56px" }}
               variant="contained"
@@ -84,7 +83,7 @@ const Adopters = () => {
           </Link>
         </Header>
         <TableContainer>
-          {allAdopters?.length === 0 ? (
+          {allAdoptions?.length === 0 ? (
             <NoContent />
           ) : (
             <Table size="medium">
@@ -98,7 +97,7 @@ const Adopters = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {adopters.map((row) => (
+                {adoptions.map((row) => (
                   <TableRow key={row.id}>
                     <TableCell padding="checkbox">
                       <IconButton
@@ -119,7 +118,7 @@ const Adopters = () => {
                         aria-label="expand row"
                         size="small"
                         as={Link}
-                        to={`/edit/adopter/${row.id}`}
+                        to={`/edit/adoption/${row.id}`}
                       >
                         <Edit />
                       </IconButton>
@@ -143,4 +142,4 @@ const Adopters = () => {
   );
 };
 
-export default Adopters;
+export default Adoptions;
