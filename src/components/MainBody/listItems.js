@@ -1,71 +1,92 @@
-import * as React from "react";
+import React from "react";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import ListSubheader from "@mui/material/ListSubheader";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PeopleIcon from "@mui/icons-material/People";
-import BarChartIcon from "@mui/icons-material/BarChart";
-import LayersIcon from "@mui/icons-material/Layers";
-import AssignmentIcon from "@mui/icons-material/Assignment";
+import PetsIcon from "@mui/icons-material/Pets";
+import ColorizeIcon from "@mui/icons-material/Colorize";
+import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
+import HealthAndSafetyIcon from "@mui/icons-material/HealthAndSafety";
+import GroupAddIcon from "@mui/icons-material/GroupAdd";
+import AddReactionIcon from "@mui/icons-material/AddReaction";
+import AddIcon from "@mui/icons-material/Add";
+import { Link } from "react-router-dom";
 
 export const mainListItems = (
   <div>
-    {/* <ListSubheader inset>Saved reports</ListSubheader> */}
-    <ListItem button title="Dashboard">
+    <ListSubheader inset>Listagens</ListSubheader>
+    <ListItem button component={Link} to="/">
       <ListItemIcon>
-        <DashboardIcon />
+        <PetsIcon />
       </ListItemIcon>
-      <ListItemText primary="Dashboard" />
+      <ListItemText primary="Animais" />
     </ListItem>
-    <ListItem button>
+    <ListItem button component={Link} to="/vaccines">
       <ListItemIcon>
-        <ShoppingCartIcon />
+        <ColorizeIcon />
       </ListItemIcon>
-      <ListItemText primary="Orders" />
+      <ListItemText primary="Vacinas" />
     </ListItem>
-    <ListItem button>
+    <ListItem button component={Link} to="/adopters">
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
-      <ListItemText primary="Customers" />
+      <ListItemText primary="Adotantes" />
     </ListItem>
-    <ListItem button>
+    <ListItem button component={Link} to="/adoptions">
       <ListItemIcon>
-        <BarChartIcon />
+        <EmojiPeopleIcon />
       </ListItemIcon>
-      <ListItemText primary="Reports" />
+      <ListItemText primary="Adoções" />
     </ListItem>
-    <ListItem button>
+    <ListItem button component={Link} to="/attendances">
       <ListItemIcon>
-        <LayersIcon />
+        <HealthAndSafetyIcon />
       </ListItemIcon>
-      <ListItemText primary="Integrations" />
+      <ListItemText primary="Atendimentos" />
     </ListItem>
   </div>
 );
 
 export const secondaryListItems = (
   <div>
-    <ListSubheader inset>Saved reports</ListSubheader>
-    <ListItem button>
+    <ListSubheader inset>Cadastros</ListSubheader>
+    <ListItem button component={Link} to="/add/animal">
       <ListItemIcon>
-        <AssignmentIcon />
+        <PetsIcon />
       </ListItemIcon>
-      <ListItemText primary="Current month" />
+      <ListItemText primary="Animal" />
     </ListItem>
-    <ListItem button>
+    <ListItem button component={Link} to="/add/vaccine">
       <ListItemIcon>
-        <AssignmentIcon />
+        <ColorizeIcon />
       </ListItemIcon>
-      <ListItemText primary="Last quarter" />
+      <ListItemText primary="Vacina" />
     </ListItem>
-    <ListItem button>
+    <ListItem button component={Link} to="/add/vaccination">
       <ListItemIcon>
-        <AssignmentIcon />
+        <AddIcon />
       </ListItemIcon>
-      <ListItemText primary="Year-end sale" />
+      <ListItemText primary="Vacinação" />
+    </ListItem>
+    <ListItem button component={Link} to="/add/adopter">
+      <ListItemIcon>
+        <GroupAddIcon />
+      </ListItemIcon>
+      <ListItemText primary="Adotante" />
+    </ListItem>
+    <ListItem button component={Link} to="/add/adoption">
+      <ListItemIcon>
+        <AddReactionIcon />
+      </ListItemIcon>
+      <ListItemText primary="Adoção" />
+    </ListItem>
+    <ListItem button component={Link} to="/add/attendance">
+      <ListItemIcon>
+        <HealthAndSafetyIcon />
+      </ListItemIcon>
+      <ListItemText primary="Atendimento" />
     </ListItem>
   </div>
 );

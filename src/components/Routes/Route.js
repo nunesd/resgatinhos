@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { Redirect, Route as RouterRoute } from "react-router";
-import { Context } from "../../App";
+import { GeneralStateContext } from "../../App";
 
 const Route = (props) => {
   const { path } = props;
-  const { generalState } = useContext(Context);
+  const { generalState } = useContext(GeneralStateContext);
 
   if (generalState.logged) {
     if (path !== "/login") {

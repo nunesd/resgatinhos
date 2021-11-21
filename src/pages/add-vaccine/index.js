@@ -2,13 +2,12 @@ import React, { useContext } from "react";
 import { styled } from "@mui/material/styles";
 import {
   Button,
-  InputLabel,
-  OutlinedInput,
   useMediaQuery,
   Grid as MaterialGrid,
+  TextField,
 } from "@mui/material";
 import MainBody from "../../components/MainBody";
-import { Context } from "../../App";
+import { ModalContext } from "../../App";
 import { useTheme } from "@material-ui/core/styles";
 import api from "../../api";
 import { Add } from "@mui/icons-material";
@@ -26,7 +25,7 @@ const Form = styled(MaterialGrid)(({ theme }) => ({
 const AddVaccine = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-  const { setGeneralState } = useContext(Context);
+  const { setModalState } = useContext(ModalContext);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -38,9 +37,23 @@ const AddVaccine = () => {
         vaccineName: data.get("vaccineName"),
       }),
     })
-      .then((data) => data.json())
       .then((data) => {
-        setGeneralState({ logged: true });
+        if (!data.ok) {
+          setModalState({
+            isOpen: true,
+            title: "Erro ao adicionar vacina!",
+            description:
+              "Revise os dados enviados ou entre em contato com o admin",
+          });
+        }
+      })
+      .then((data) => {
+        setModalState({
+          isOpen: true,
+          title: "Vacina",
+          description: "vacina adicionada com sucesso!",
+          link: "/vaccines",
+        });
       });
   };
 
@@ -48,10 +61,7 @@ const AddVaccine = () => {
     <MainBody title="Cadastro de Vacina">
       <Form container spacing={3} component="form" onSubmit={handleSubmit}>
         <Grid item xs={12} md={6} lg={4}>
-          <InputLabel htmlFor="outlined-adornment-amount">
-            Nome da vacina
-          </InputLabel>
-          <OutlinedInput
+          <TextField
             variant="outlined"
             required
             fullWidth

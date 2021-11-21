@@ -8,14 +8,14 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Context } from "../../App";
+import { GeneralStateContext } from "../../App";
 import { Link as RouterLink } from "react-router-dom";
 import api from "../../api";
 
 const theme = createTheme({});
 
 const Login = () => {
-  const { setGeneralState } = useContext(Context);
+  const { setGeneralState } = useContext(GeneralStateContext);
 
   const handleSubmit = (event) => {
     event.preventDefault();

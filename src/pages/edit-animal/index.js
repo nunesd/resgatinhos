@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import {
   TextField,
@@ -8,6 +8,7 @@ import {
   FormControlLabel,
   Switch,
   Typography,
+  InputAdornment,
 } from "@mui/material";
 import { useTheme } from "@material-ui/core/styles";
 import { Add } from "@mui/icons-material";
@@ -15,6 +16,8 @@ import MainBody from "../../components/MainBody";
 import api from "../../api";
 import { DesktopDatePicker } from "@mui/lab";
 import { SCROLLBAR_OBJ } from "../../styles";
+import { useParams } from "react-router";
+import { DateTime } from "luxon";
 
 const Grid = styled(MaterialGrid)(({ theme }) => ({
   maxHeight: "200px",
@@ -25,31 +28,41 @@ const Form = styled(MaterialGrid)(({ theme }) => ({
   ...SCROLLBAR_OBJ,
 }));
 
-const AddAnimal = () => {
+window.DateTime = DateTime;
+
+const EditAnimal = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  let { id } = useParams();
 
+  const [animal, setAnimal] = useState({});
   const [needAttendance, setNeedAttendance] = useState(false);
   const [isCastrated, setIsCastrated] = useState(false);
-  const [rescueDate, setRescueDate] = useState(new Date());
-  const [castrationDate, setCastrationDate] = useState(new Date());
+  const [rescueDate, setRescueDate] = useState(null);
+  const [castrationDate, setCastrationDate] = useState(null);
+  const [name, setName] = useState();
+  const [age, setAge] = useState();
+  const [weight, setWeight] = useState();
+  const [vetName, setVetName] = useState();
+  const [attendanceDays, setAttendanceDays] = useState();
+  const [attendanceReason, setAttendanceReason] = useState();
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    api("/animal", {
-      method: "POST",
+    api(`/animal/${id}`, {
+      method: "PUT",
       body: JSON.stringify({
         name: data.get("name"),
         age: data.get("age"),
         weight: data.get("weight"),
-        rescueDate: rescueDate.toLocaleDateString(),
+        rescueDate: rescueDate?.toLocaleString(),
         needAttendance,
         attendanceDays: data.get("attendanceDays"),
         attendanceReason: data.get("attendanceReason"),
         isCastrated,
-        castrationDate: castrationDate.toLocaleDateString(),
+        castrationDate: castrationDate?.toLocaleString(),
         vetName: data.get("vetName"),
       }),
     })
@@ -59,6 +72,35 @@ const AddAnimal = () => {
       });
   };
 
+  useEffect(() => {
+    const getAnimal = async () => {
+      await api(`/animal/${id}`, {})
+        .then((data) => data.json())
+        .then((data) => {
+          setAnimal(data);
+          console.log(data);
+          data.rescueDate &&
+            setRescueDate(DateTime.fromFormat(data.rescueDate, "dd/MM/yyyy"));
+          data.castrationDate &&
+            setCastrationDate(
+              DateTime.fromFormat(data.castrationDate, "dd/MM/yyyy")
+            );
+          data.isCastrated !== null && setIsCastrated(data.isCastrated);
+          data.needAttendance !== null &&
+            setNeedAttendance(data.needAttendance);
+          setName(data.name);
+          setAge(data.age);
+          setWeight(data.weight);
+          setVetName(data.setVetName);
+        })
+        .catch(() => {
+          setAnimal({});
+        });
+    };
+
+    getAnimal();
+  }, [id]);
+
   return (
     <MainBody title="Cadastro de Animal">
       <Form container spacing={3} component="form" onSubmit={handleSubmit}>
@@ -66,8 +108,18 @@ const AddAnimal = () => {
           <TextField
             variant="outlined"
             fullWidth
+            value={name}
+            onChange={({ target: { value } }) => {
+              setName(value);
+            }}
+            placeholder={animal?.name !== undefined && "Carregando"}
             label="Nome"
             name="name"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start"></InputAdornment>
+              ),
+            }}
             required
           />
         </Grid>
@@ -75,8 +127,18 @@ const AddAnimal = () => {
           <TextField
             variant="outlined"
             fullWidth
+            value={age}
+            onChange={({ target: { value } }) => {
+              setAge(value);
+            }}
             label="Idade"
             name="age"
+            placeholder={animal?.age === undefined && "Carregando"}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start"></InputAdornment>
+              ),
+            }}
             required
           />
         </Grid>
@@ -84,8 +146,18 @@ const AddAnimal = () => {
           <TextField
             variant="outlined"
             fullWidth
+            value={weight}
+            onChange={({ target: { value } }) => {
+              setWeight(value);
+            }}
             label="Peso"
             name="weight"
+            placeholder={animal?.weight === undefined && "Carregando"}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start"></InputAdornment>
+              ),
+            }}
             required
           />
         </Grid>
@@ -133,14 +205,23 @@ const AddAnimal = () => {
             renderInput={(params) => <TextField {...params} />}
           />
         </Grid>
-
         <Grid item xs={12} md={6} lg={4}>
           <TextField
             variant="outlined"
             fullWidth
             disabled={!isCastrated}
+            value={vetName}
+            onChange={(date) => {
+              setCastrationDate(date);
+            }}
             label="Veterinário que realizou a castração"
             name="vetName"
+            placeholder={animal?.vetName === undefined && "Carregando"}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start"></InputAdornment>
+              ),
+            }}
             required
           />
         </Grid>
@@ -172,6 +253,16 @@ const AddAnimal = () => {
             disabled={!needAttendance}
             label="Dias em atendimento"
             name="attendanceDays"
+            value={attendanceDays}
+            onChange={(date) => {
+              setAttendanceDays(date);
+            }}
+            placeholder={animal?.vetName === undefined && "Carregando"}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start"></InputAdornment>
+              ),
+            }}
             required
           />
         </Grid>
@@ -180,9 +271,19 @@ const AddAnimal = () => {
             variant="outlined"
             fullWidth
             disabled={!needAttendance}
+            value={attendanceReason}
+            onChange={(date) => {
+              setAttendanceReason(date);
+            }}
             type="password"
             label="Motivo do atendimento"
             name="attendanceReason"
+            placeholder={animal?.vetName === undefined && "Carregando"}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start"></InputAdornment>
+              ),
+            }}
             required
           />
         </Grid>
@@ -190,14 +291,14 @@ const AddAnimal = () => {
           <Button
             sx={{
               ml: 0.5,
-              width: "100px",
+              width: "120px",
               height: "56px",
               ...(isMobile && { width: "100%" }),
             }}
             variant="contained"
             type="submit"
           >
-            Criar
+            Atualizar
             <Add />
           </Button>
         </Grid>
@@ -206,4 +307,4 @@ const AddAnimal = () => {
   );
 };
 
-export default AddAnimal;
+export default EditAnimal;

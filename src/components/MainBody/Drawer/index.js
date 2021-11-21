@@ -1,8 +1,9 @@
 import React from "react";
-import { Divider, IconButton, List, Toolbar } from "@mui/material";
+import { Divider, IconButton, List, Toolbar, Typography } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import { mainListItems } from "../listItems";
+import { mainListItems, secondaryListItems } from "../listItems";
 import { StyledDrawer } from "./styles";
+import LogoSystem from "../../../assets/img/logo.jpeg";
 
 const Drawer = ({ isOpen, toggleDrawer }) => {
   return (
@@ -15,12 +16,28 @@ const Drawer = ({ isOpen, toggleDrawer }) => {
           px: [1],
         }}
       >
+        <Typography
+          component="h1"
+          variant="h6"
+          color="inherit"
+          noWrap
+          sx={{ flexGrow: 1, textAlign: "center" }}
+        >
+          <img
+            style={{ width: 150, height: "auto", display: !isOpen && "none  " }}
+            src={LogoSystem}
+            alt="Logo Sistema"
+          />
+        </Typography>
         <IconButton onClick={toggleDrawer}>
           <ChevronLeftIcon />
         </IconButton>
       </Toolbar>
       <Divider />
       <List>{mainListItems}</List>
+
+      <Divider />
+      <List>{secondaryListItems}</List>
     </StyledDrawer>
   );
 };

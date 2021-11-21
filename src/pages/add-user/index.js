@@ -10,7 +10,7 @@ import { useTheme } from "@material-ui/core/styles";
 import { Add } from "@mui/icons-material";
 import MainBody from "../../components/MainBody";
 import api from "../../api";
-import { Context } from "../../App";
+import { GeneralStateContext } from "../../App";
 import { SCROLLBAR_OBJ } from "../../styles";
 
 const Grid = styled(MaterialGrid)(({ theme }) => ({
@@ -25,7 +25,7 @@ const Form = styled(MaterialGrid)(({ theme }) => ({
 const AddUser = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-  const { setGeneralState } = useContext(Context);
+  const { setGeneralState } = useContext(GeneralStateContext);
 
   const handleSubmit = (event) => {
     event.preventDefault();

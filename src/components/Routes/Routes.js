@@ -14,13 +14,14 @@ import AdoptionList from "../../pages/adoption-list";
 import AttendanceList from "../../pages/attendance-list";
 import AddAttendance from "../../pages/add-attendance";
 import AddAnimal from "../../pages/add-animal";
+import EditAnimal from "../../pages/edit-animal";
 
 const Routes = () => {
   return (
     <Switch>
       <Route exact path="/login" render={() => <Login />} />
       <Route exact path="/vaccines" render={() => <Vaccines />} />
-      <Route exact path="/animals" render={() => <AnimalList />} />
+      <Route exact path="/" render={() => <AnimalList />} />
       <Route exact path="/adopters" render={() => <AdopterList />} />
       <Route exact path="/adoptions" render={() => <AdoptionList />} />
       <Route exact path="/attendances" render={() => <AttendanceList />} />
@@ -31,7 +32,7 @@ const Routes = () => {
       <Route exact path="/add/user" render={() => <AddUser />} />
       <Route exact path="/add/attendance" render={() => <AddAttendance />} />
       <Route exact path="/add/animal" render={() => <AddAnimal />} />
-      <Route exact path="/" render={() => <Vaccines />} />
+      <Route exact path="/edit/animal/:id" render={() => <EditAnimal />} />
       <Route exact path="*" render={() => <div>Página não encontrada</div>} />
     </Switch>
   );

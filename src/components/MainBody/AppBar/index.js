@@ -2,10 +2,10 @@ import React, { useContext } from "react";
 import { IconButton, Toolbar, Typography } from "@mui/material";
 import { Menu as MenuIcon, Logout } from "@mui/icons-material";
 import { StyledAppBar } from "./styles";
-import { Context } from "../../../App";
+import { GeneralStateContext } from "../../../App";
 
 const Appbar = ({ isOpen, toggleDrawer, title }) => {
-  const { setGeneralState } = useContext(Context);
+  const { setGeneralState } = useContext(GeneralStateContext);
 
   const logout = () => {
     setGeneralState({ logged: false });
