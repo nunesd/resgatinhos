@@ -11,9 +11,15 @@ import { Add } from "@mui/icons-material";
 import MainBody from "../../components/MainBody";
 import api from "../../api";
 import { Context } from "../../App";
+import { SCROLLBAR_OBJ } from "../../styles";
 
 const Grid = styled(MaterialGrid)(({ theme }) => ({
   maxHeight: "200px",
+}));
+
+const Form = styled(MaterialGrid)(({ theme }) => ({
+  overflow: "auto",
+  ...SCROLLBAR_OBJ,
 }));
 
 const AddUser = () => {
@@ -43,7 +49,7 @@ const AddUser = () => {
 
   return (
     <MainBody title="Cadastro de Usuário">
-      <Grid container spacing={3} component="form" onSubmit={handleSubmit}>
+      <Form container spacing={3} component="form" onSubmit={handleSubmit}>
         <Grid item xs={12} md={6} lg={4}>
           <TextField
             variant="outlined"
@@ -106,7 +112,7 @@ const AddUser = () => {
             <Add />
           </Button>
         </Grid>
-      </Grid>
+      </Form>
     </MainBody>
   );
 };

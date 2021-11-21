@@ -33,9 +33,18 @@ const Login = () => {
         password: data.get("password"),
       }),
     })
-      .then((data) => data.json())
+      .then((data) => {
+        if (!data.ok) {
+          throw new Error("Login error");
+        }
+        return data.json();
+      })
       .then((data) => {
         setGeneralState({ logged: true });
+      })
+      .catch(() => {
+        setGeneralState({ logged: false });
+        //TODO: modal de erro no login
       });
   };
 

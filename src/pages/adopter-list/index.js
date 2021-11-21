@@ -12,6 +12,8 @@ import {
   IconButton,
   InputAdornment,
   InputLabel,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import Search from "@mui/icons-material/Search";
 import OpenInNew from "@mui/icons-material/OpenInNew";
@@ -24,6 +26,9 @@ import api from "../../api";
 import NoContent from "../../components/NoContent";
 
 const Adopters = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
   const [adopters, setAdopters] = useState([]);
   const [allAdopters, setAllAdopters] = useState([]);
   const [filterText, setFilterText] = useState("");
@@ -92,7 +97,7 @@ const Adopters = () => {
                 <TableRow>
                   <TableCell padding="checkbox" />
                   <StyledTableCell>Nome</StyledTableCell>
-                  <StyledTableCell>Sobrenome</StyledTableCell>
+                  {!isMobile && <StyledTableCell>Sobrenome</StyledTableCell>}
                   <StyledTableCell>Telefone</StyledTableCell>
                   <TableCell padding="checkbox" />
                 </TableRow>
@@ -111,7 +116,7 @@ const Adopters = () => {
                       </IconButton>
                     </TableCell>
                     <TableCell>{row.firstName}</TableCell>
-                    <TableCell>{row.lastName}</TableCell>
+                    {!isMobile && <TableCell>{row.lastName}</TableCell>}
                     <TableCell>{row.phoneNumber || "-"}</TableCell>
 
                     <TableCell sx={{ display: "flex" }}>

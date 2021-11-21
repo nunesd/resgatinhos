@@ -12,6 +12,8 @@ import {
   IconButton,
   InputAdornment,
   InputLabel,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import Search from "@mui/icons-material/Search";
 import OpenInNew from "@mui/icons-material/OpenInNew";
@@ -24,6 +26,9 @@ import api from "../../api";
 import NoContent from "../../components/NoContent";
 
 const Animals = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
   const [animals, setAnimals] = useState([]);
   const [allAnimals, setAllAnimals] = useState();
   const [filterText, setFilterText] = useState("");
@@ -92,7 +97,9 @@ const Animals = () => {
                 <TableRow>
                   <TableCell padding="checkbox" />
                   <StyledTableCell>Nome</StyledTableCell>
-                  <StyledTableCell>Data de resgate</StyledTableCell>
+                  {!isMobile && (
+                    <StyledTableCell>Data de resgate</StyledTableCell>
+                  )}
                   <StyledTableCell>Castrado</StyledTableCell>
                   <TableCell padding="checkbox" />
                 </TableRow>
@@ -111,7 +118,7 @@ const Animals = () => {
                       </IconButton>
                     </TableCell>
                     <TableCell>{row.name}</TableCell>
-                    <TableCell>{row.rescueDate}</TableCell>
+                    {!isMobile && <TableCell>{row.rescueDate}</TableCell>}
                     <TableCell>
                       {row.isCastrated === undefined
                         ? "-"

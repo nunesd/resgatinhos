@@ -16,9 +16,15 @@ import MainBody from "../../components/MainBody";
 import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
 import api from "../../api";
 import Add from "@mui/icons-material/Add";
+import { SCROLLBAR_OBJ } from "../../styles";
 
 const Grid = styled(MaterialGrid)(({ theme }) => ({
   maxHeight: "200px",
+}));
+
+const Form = styled(MaterialGrid)(({ theme }) => ({
+  overflow: "auto",
+  ...SCROLLBAR_OBJ,
 }));
 
 const FormControl = styled(MaterialFormControl)(({ theme }) => ({
@@ -90,7 +96,7 @@ const AddAdoption = () => {
 
   return (
     <MainBody title="Cadastro de Adoção">
-      <Grid container spacing={3} component="form" onSubmit={handleSubmit}>
+      <Form container spacing={3} component="form" onSubmit={handleSubmit}>
         <Grid item xs={12} md={6} lg={4}>
           <FormControl fullWidth error={!animals.length}>
             <InputLabel id="demo-simple-select-helper-label">
@@ -154,7 +160,7 @@ const AddAdoption = () => {
         </Grid>
         <Grid item xs={12} md={6} lg={4}>
           <DesktopDatePicker
-            label="Date desktop"
+            label="Data"
             inputFormat="dd/MM/yyyy"
             value={date}
             onChange={(date) => {
@@ -189,7 +195,7 @@ const AddAdoption = () => {
             <Add />
           </Button>
         </Grid>
-      </Grid>
+      </Form>
     </MainBody>
   );
 };

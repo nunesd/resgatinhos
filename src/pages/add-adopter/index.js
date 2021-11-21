@@ -10,9 +10,15 @@ import MainBody from "../../components/MainBody";
 import { useTheme } from "@material-ui/core";
 import Add from "@mui/icons-material/Add";
 import api from "../../api";
+import { SCROLLBAR_OBJ } from "../../styles";
 
 const Grid = styled(MaterialGrid)(({ theme }) => ({
   maxHeight: "200px",
+}));
+
+const Form = styled(MaterialGrid)(({ theme }) => ({
+  overflow: "auto",
+  ...SCROLLBAR_OBJ,
 }));
 
 const AddAdopter = () => {
@@ -42,7 +48,7 @@ const AddAdopter = () => {
 
   return (
     <MainBody title="Cadastro de Adotante">
-      <Grid container spacing={3} component="form" onSubmit={handleSubmit}>
+      <Form container spacing={3} component="form" onSubmit={handleSubmit}>
         <Grid item xs={12} md={6} lg={4}>
           <TextField
             variant="outlined"
@@ -106,7 +112,7 @@ const AddAdopter = () => {
             <Add />
           </Button>
         </Grid>
-      </Grid>
+      </Form>
     </MainBody>
   );
 };
