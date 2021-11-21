@@ -14,9 +14,7 @@ import {
   InputLabel,
 } from "@mui/material";
 import Search from "@mui/icons-material/Search";
-import OpenInNew from "@mui/icons-material/OpenInNew";
 import Add from "@mui/icons-material/Add";
-import Edit from "@mui/icons-material/Edit";
 import Delete from "@mui/icons-material/Delete";
 import MainBody from "../../components/MainBody";
 import { TableContainer, Container, StyledTableCell, Header } from "./styles";
@@ -90,7 +88,6 @@ const Attendances = () => {
             <Table size="medium">
               <TableHead>
                 <TableRow>
-                  <TableCell padding="checkbox" />
                   <StyledTableCell>Nome</StyledTableCell>
                   <StyledTableCell>Veterinário</StyledTableCell>
                   <TableCell padding="checkbox" />
@@ -99,28 +96,10 @@ const Attendances = () => {
               <TableBody>
                 {attendances.map((row) => (
                   <TableRow key={row.id}>
-                    <TableCell padding="checkbox">
-                      <IconButton
-                        aria-label="expand row"
-                        size="small"
-                        as={Link}
-                        to="/1"
-                      >
-                        <OpenInNew />
-                      </IconButton>
-                    </TableCell>
                     <TableCell>{row.animal.name}</TableCell>
                     <TableCell>{row.vetName}</TableCell>
 
                     <TableCell sx={{ display: "flex" }}>
-                      <IconButton
-                        aria-label="expand row"
-                        size="small"
-                        as={Link}
-                        to={`/edit/attendance/${row.id}`}
-                      >
-                        <Edit />
-                      </IconButton>
                       <IconButton
                         aria-label="expand row"
                         size="small"

@@ -60,7 +60,7 @@ const Animals = () => {
   return (
     <MainBody title="Animais">
       <Container>
-        <Header>
+        <Header sx={{ boxSizing: "border-box" }}>
           <FormControl fullWidth sx={{ p: 0.1, mb: 3, display: "flex" }}>
             <InputLabel htmlFor="outlined-adornment-amount">
               Procurar animais
@@ -100,7 +100,7 @@ const Animals = () => {
                   {!isMobile && (
                     <StyledTableCell>Data de resgate</StyledTableCell>
                   )}
-                  <StyledTableCell>Castrado</StyledTableCell>
+                  {!isMobile && <StyledTableCell>Castrado</StyledTableCell>}
                   <TableCell padding="checkbox" />
                 </TableRow>
               </TableHead>
@@ -119,13 +119,15 @@ const Animals = () => {
                     </TableCell>
                     <TableCell>{row.name}</TableCell>
                     {!isMobile && <TableCell>{row.rescueDate}</TableCell>}
-                    <TableCell>
-                      {row.isCastrated === undefined
-                        ? "-"
-                        : row.isCastrated
-                        ? "Sim"
-                        : "Nâo"}
-                    </TableCell>
+                    {!isMobile && (
+                      <TableCell>
+                        {row.isCastrated === undefined
+                          ? "-"
+                          : row.isCastrated
+                          ? "Sim"
+                          : "Nâo"}
+                      </TableCell>
+                    )}
 
                     <TableCell sx={{ display: "flex" }}>
                       <IconButton

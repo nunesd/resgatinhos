@@ -16,9 +16,7 @@ import {
   useTheme,
 } from "@mui/material";
 import Search from "@mui/icons-material/Search";
-import OpenInNew from "@mui/icons-material/OpenInNew";
 import Add from "@mui/icons-material/Add";
-import Edit from "@mui/icons-material/Edit";
 import Delete from "@mui/icons-material/Delete";
 import MainBody from "../../components/MainBody";
 import { TableContainer, Container, StyledTableCell, Header } from "./styles";
@@ -95,41 +93,22 @@ const Adoptions = () => {
             <Table size="medium">
               <TableHead>
                 <TableRow>
-                  <TableCell padding="checkbox" />
                   <StyledTableCell>Nome do animal</StyledTableCell>
-                  <StyledTableCell>Adotante</StyledTableCell>
-                  {!isMobile && <StyledTableCell>Telefone</StyledTableCell>}
+                  {!isMobile && <StyledTableCell>Adotante</StyledTableCell>}
+                  <StyledTableCell>Telefone</StyledTableCell>
                   <TableCell padding="checkbox" />
                 </TableRow>
               </TableHead>
               <TableBody>
                 {adoptions.map((row) => (
                   <TableRow key={row.id}>
-                    <TableCell padding="checkbox">
-                      <IconButton
-                        aria-label="expand row"
-                        size="small"
-                        as={Link}
-                        to="/1"
-                      >
-                        <OpenInNew />
-                      </IconButton>
-                    </TableCell>
                     <TableCell>{row.animalNewName}</TableCell>
-                    <TableCell>{row.adopter?.firstName}</TableCell>
                     {!isMobile && (
-                      <TableCell>{row.adopter.phoneNumber || "-"}</TableCell>
+                      <TableCell>{row.adopter?.firstName}</TableCell>
                     )}
+                    <TableCell>{row.adopter.phoneNumber || "-"}</TableCell>
 
                     <TableCell sx={{ display: "flex" }}>
-                      <IconButton
-                        aria-label="expand row"
-                        size="small"
-                        as={Link}
-                        to={`/edit/adoption/${row.id}`}
-                      >
-                        <Edit />
-                      </IconButton>
                       <IconButton
                         aria-label="expand row"
                         size="small"

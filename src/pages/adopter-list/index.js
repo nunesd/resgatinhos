@@ -16,9 +16,7 @@ import {
   useTheme,
 } from "@mui/material";
 import Search from "@mui/icons-material/Search";
-import OpenInNew from "@mui/icons-material/OpenInNew";
 import Add from "@mui/icons-material/Add";
-import Edit from "@mui/icons-material/Edit";
 import Delete from "@mui/icons-material/Delete";
 import MainBody from "../../components/MainBody";
 import { TableContainer, Container, StyledTableCell, Header } from "./styles";
@@ -95,7 +93,6 @@ const Adopters = () => {
             <Table size="medium">
               <TableHead>
                 <TableRow>
-                  <TableCell padding="checkbox" />
                   <StyledTableCell>Nome</StyledTableCell>
                   {!isMobile && <StyledTableCell>Sobrenome</StyledTableCell>}
                   <StyledTableCell>Telefone</StyledTableCell>
@@ -105,29 +102,11 @@ const Adopters = () => {
               <TableBody>
                 {adopters.map((row) => (
                   <TableRow key={row.id}>
-                    <TableCell padding="checkbox">
-                      <IconButton
-                        aria-label="expand row"
-                        size="small"
-                        as={Link}
-                        to="/1"
-                      >
-                        <OpenInNew />
-                      </IconButton>
-                    </TableCell>
                     <TableCell>{row.firstName}</TableCell>
                     {!isMobile && <TableCell>{row.lastName}</TableCell>}
                     <TableCell>{row.phoneNumber || "-"}</TableCell>
 
                     <TableCell sx={{ display: "flex" }}>
-                      <IconButton
-                        aria-label="expand row"
-                        size="small"
-                        as={Link}
-                        to={`/edit/adopter/${row.id}`}
-                      >
-                        <Edit />
-                      </IconButton>
                       <IconButton
                         aria-label="expand row"
                         size="small"
