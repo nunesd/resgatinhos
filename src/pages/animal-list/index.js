@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -24,10 +24,12 @@ import MainBody from "../../components/MainBody";
 import { TableContainer, Container, StyledTableCell, Header } from "./styles";
 import api from "../../api";
 import NoContent from "../../components/NoContent";
+import { ModalContext } from "../../App";
 
 const Animals = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const { setModalState } = useContext(ModalContext);
 
   const [animals, setAnimals] = useState([]);
   const [allAnimals, setAllAnimals] = useState();
@@ -45,6 +47,27 @@ const Animals = () => {
         item.name.toLowerCase().includes(name.toLowerCase())
       )
     );
+  };
+
+  const onDelete = (id) => () => {
+    api(`/animal/${id}`, { method: "DELETE" }).then((data) => {
+      if (!data.ok) {
+        setModalState({
+          isOpen: true,
+          title: "Erro ao deletar animal!",
+          description:
+            "Revise os dados enviados ou entre em contato com o admin",
+        });
+        return;
+      }
+
+      setModalState({
+        isOpen: true,
+        title: "Animal deletado",
+        description: "Animal deletado com sucesso!",
+        refresh: true,
+      });
+    });
   };
 
   useEffect(() => {
@@ -141,8 +164,7 @@ const Animals = () => {
                       <IconButton
                         aria-label="expand row"
                         size="small"
-                        as={Link}
-                        to={`/edit/animal/${row.id}`}
+                        onClick={onDelete(row.id)}
                       >
                         <Delete />
                       </IconButton>

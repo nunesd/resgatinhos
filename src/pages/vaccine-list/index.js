@@ -1,28 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import OutlinedInput from "@mui/material/OutlinedInput";
 import {
   Button,
   FormControl,
   IconButton,
   InputAdornment,
   InputLabel,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  OutlinedInput,
 } from "@mui/material";
 import Search from "@mui/icons-material/Search";
 import OpenInNew from "@mui/icons-material/OpenInNew";
 import Add from "@mui/icons-material/Add";
-import Edit from "@mui/icons-material/Edit";
 import Delete from "@mui/icons-material/Delete";
 import MainBody from "../../components/MainBody";
 import { TableContainer, Container, StyledTableCell, Header } from "./styles";
 import api from "../../api";
+import { ModalContext } from "../../App";
 
 const Vaccines = () => {
+  const { setModalState } = useContext(ModalContext);
+
   const [vaccines, setVaccines] = useState([]);
   const [allVaccines, setAllVaccines] = useState([]);
   const [filterText, setFilterText] = useState("");
@@ -41,8 +43,29 @@ const Vaccines = () => {
     );
   };
 
+  const onDelete = (id) => () => {
+    api(`/vaccine/${id}`, { method: "DELETE" }).then((data) => {
+      if (!data.ok) {
+        setModalState({
+          isOpen: true,
+          title: "Erro ao deletar vacina!",
+          description:
+            "Revise os dados enviados ou entre em contato com o admin",
+        });
+        return;
+      }
+
+      setModalState({
+        isOpen: true,
+        title: "Vacina deletada",
+        description: "Vacina deletada com sucesso!",
+        refresh: true,
+      });
+    });
+  };
+
   useEffect(() => {
-    api("/vaccine", {})
+    api("/vaccine")
       .then((data) => data.json())
       .then((data) => {
         setVaccines(data);
@@ -107,16 +130,7 @@ const Vaccines = () => {
                     <IconButton
                       aria-label="expand row"
                       size="small"
-                      as={Link}
-                      to={`/edit/${row.id}`}
-                    >
-                      <Edit />
-                    </IconButton>
-                    <IconButton
-                      aria-label="expand row"
-                      size="small"
-                      as={Link}
-                      to={`/edit/${row.id}`}
+                      onClick={onDelete(row.id)}
                     >
                       <Delete />
                     </IconButton>

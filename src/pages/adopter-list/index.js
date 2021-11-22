@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -19,13 +19,15 @@ import Search from "@mui/icons-material/Search";
 import Add from "@mui/icons-material/Add";
 import Delete from "@mui/icons-material/Delete";
 import MainBody from "../../components/MainBody";
-import { TableContainer, Container, StyledTableCell, Header } from "./styles";
-import api from "../../api";
 import NoContent from "../../components/NoContent";
+import { TableContainer, Container, StyledTableCell, Header } from "./styles";
+import { ModalContext } from "../../App";
+import api from "../../api";
 
 const Adopters = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const { setModalState } = useContext(ModalContext);
 
   const [adopters, setAdopters] = useState([]);
   const [allAdopters, setAllAdopters] = useState([]);
@@ -45,11 +47,31 @@ const Adopters = () => {
     );
   };
 
+  const onDelete = (id) => () => {
+    api(`/adopter/${id}`, { method: "DELETE" }).then((data) => {
+      if (!data.ok) {
+        setModalState({
+          isOpen: true,
+          title: "Erro ao deletar adotante!",
+          description:
+            "Revise os dados enviados ou entre em contato com o admin",
+        });
+        return;
+      }
+
+      setModalState({
+        isOpen: true,
+        title: "Adotante deletado",
+        description: "Adotante deletado com sucesso!",
+        refresh: true,
+      });
+    });
+  };
+
   useEffect(() => {
     api("/adopter", {})
       .then((data) => data.json())
       .then((data) => {
-        console.log(data);
         setAdopters(data);
         setAllAdopters(data);
       });
@@ -110,8 +132,7 @@ const Adopters = () => {
                       <IconButton
                         aria-label="expand row"
                         size="small"
-                        as={Link}
-                        to={`/edit/${row.id}`}
+                        onClick={onDelete(row.id)}
                       >
                         <Delete />
                       </IconButton>

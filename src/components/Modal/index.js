@@ -51,6 +51,7 @@ const Modal = () => {
           type="submit"
           onClick={() => {
             setModalState({ isOpen: false });
+            modalState.refresh && window.location.reload();
           }}
           component={modalState.link && Link}
           to={modalState.link && modalState.link}

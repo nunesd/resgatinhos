@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -19,13 +19,15 @@ import Search from "@mui/icons-material/Search";
 import Add from "@mui/icons-material/Add";
 import Delete from "@mui/icons-material/Delete";
 import MainBody from "../../components/MainBody";
+import NoContent from "../../components/NoContent";
+import { ModalContext } from "../../App";
 import { TableContainer, Container, StyledTableCell, Header } from "./styles";
 import api from "../../api";
-import NoContent from "../../components/NoContent";
 
 const Adoptions = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const { setModalState } = useContext(ModalContext);
 
   const [adoptions, setAdoptions] = useState([]);
   const [allAdoptions, setAllAdoptions] = useState();
@@ -43,6 +45,27 @@ const Adoptions = () => {
         item.animalNewName.toLowerCase().includes(name.toLowerCase())
       )
     );
+  };
+
+  const onDelete = (id) => () => {
+    api(`/adoption/${id}`, { method: "DELETE" }).then((data) => {
+      if (!data.ok) {
+        setModalState({
+          isOpen: true,
+          title: "Erro ao deletar adoção!",
+          description:
+            "Revise os dados enviados ou entre em contato com o admin",
+        });
+        return;
+      }
+
+      setModalState({
+        isOpen: true,
+        title: "Adoção deletada",
+        description: "Adoção deletada com sucesso!",
+        refresh: true,
+      });
+    });
   };
 
   useEffect(() => {
@@ -112,8 +135,7 @@ const Adoptions = () => {
                       <IconButton
                         aria-label="expand row"
                         size="small"
-                        as={Link}
-                        to={`/edit/${row.id}`}
+                        onClick={onDelete(row.id)}
                       >
                         <Delete />
                       </IconButton>
