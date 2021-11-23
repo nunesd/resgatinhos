@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { styled } from "@mui/material/styles";
 import {
   TextField,
@@ -11,6 +11,7 @@ import { useTheme } from "@material-ui/core";
 import Add from "@mui/icons-material/Add";
 import api from "../../api";
 import { SCROLLBAR_OBJ } from "../../styles";
+import { ModalContext } from "../../App";
 
 const Grid = styled(MaterialGrid)(({ theme }) => ({
   maxHeight: "200px",
@@ -24,6 +25,7 @@ const Form = styled(MaterialGrid)(({ theme }) => ({
 const AddAdopter = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const { setModalState } = useContext(ModalContext);
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -40,9 +42,31 @@ const AddAdopter = () => {
         info: data.get("info"),
       }),
     })
-      .then((data) => data.json())
       .then((data) => {
-        // setGeneralState({ logged: true });
+        if (!data.ok) {
+          setModalState({
+            isOpen: true,
+            title: "Erro ao adicionar adotante!",
+            description:
+              "Revise os dados enviados ou entre em contato com o admin",
+          });
+        }
+      })
+      .then((data) => {
+        setModalState({
+          isOpen: true,
+          title: "Adotante adicionado",
+          description: "Adotante adicionado com sucesso!",
+          link: "/adopters",
+        });
+      })
+      .catch(() => {
+        setModalState({
+          isOpen: true,
+          title: "Erro ao adicionar adotante!",
+          description:
+            "Revise os dados enviados ou entre em contato com o admin",
+        });
       });
   };
 

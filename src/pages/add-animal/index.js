@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { styled } from "@mui/material/styles";
 import {
   TextField,
@@ -15,6 +15,7 @@ import MainBody from "../../components/MainBody";
 import api from "../../api";
 import { DesktopDatePicker } from "@mui/lab";
 import { SCROLLBAR_OBJ } from "../../styles";
+import { ModalContext } from "../../App";
 
 const Grid = styled(MaterialGrid)(({ theme }) => ({
   maxHeight: "200px",
@@ -28,6 +29,7 @@ const Form = styled(MaterialGrid)(({ theme }) => ({
 const AddAnimal = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const { setModalState } = useContext(ModalContext);
 
   const [needAttendance, setNeedAttendance] = useState(false);
   const [isCastrated, setIsCastrated] = useState(false);
@@ -53,9 +55,31 @@ const AddAnimal = () => {
         vetName: data.get("vetName"),
       }),
     })
-      .then((data) => data.json())
       .then((data) => {
-        // setGeneralState({ logged: true });
+        if (!data.ok) {
+          setModalState({
+            isOpen: true,
+            title: "Erro ao adicionar animal!",
+            description:
+              "Revise os dados enviados ou entre em contato com o admin",
+          });
+        }
+      })
+      .then((data) => {
+        setModalState({
+          isOpen: true,
+          title: "Animal adicionado",
+          description: "Animal adicionado com sucesso!",
+          link: "/",
+        });
+      })
+      .catch(() => {
+        setModalState({
+          isOpen: true,
+          title: "Erro ao adicionar animal!",
+          description:
+            "Revise os dados enviados ou entre em contato com o admin",
+        });
       });
   };
 

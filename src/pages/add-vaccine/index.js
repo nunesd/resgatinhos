@@ -50,9 +50,17 @@ const AddVaccine = () => {
       .then((data) => {
         setModalState({
           isOpen: true,
-          title: "Vacina",
-          description: "vacina adicionada com sucesso!",
+          title: "Vacina adicionada",
+          description: "Vacina adicionada com sucesso!",
           link: "/vaccines",
+        });
+      })
+      .catch(() => {
+        setModalState({
+          isOpen: true,
+          title: "Erro ao adicionar vacina!",
+          description:
+            "Revise os dados enviados ou entre em contato com o admin",
         });
       });
   };

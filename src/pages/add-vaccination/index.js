@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import {
   TextField,
@@ -17,6 +17,7 @@ import { Add } from "@mui/icons-material";
 import MainBody from "../../components/MainBody";
 import api from "../../api";
 import { SCROLLBAR_OBJ } from "../../styles";
+import { ModalContext } from "../../App";
 
 const Grid = styled(MaterialGrid)(({ theme }) => ({
   maxHeight: "200px",
@@ -33,6 +34,7 @@ const FormControl = styled(MaterialFormControl)(({ theme }) => ({
 const AddAdoption = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const { setModalState } = useContext(ModalContext);
 
   const [animals, setAnimals] = useState([]);
   const [vaccines, setVaccines] = useState([]);
@@ -61,9 +63,31 @@ const AddAdoption = () => {
         vaccineDate: date.toLocaleDateString(),
       }),
     })
-      .then((data) => data.json())
       .then((data) => {
-        // setGeneralState({ logged: true });
+        if (!data.ok) {
+          setModalState({
+            isOpen: true,
+            title: "Erro ao adicionar vacinação!",
+            description:
+              "Revise os dados enviados ou entre em contato com o admin",
+          });
+        }
+      })
+      .then((data) => {
+        setModalState({
+          isOpen: true,
+          title: "Vacinação adicionada",
+          description: "Vacinação adicionada com sucesso!",
+          link: "/",
+        });
+      })
+      .catch(() => {
+        setModalState({
+          isOpen: true,
+          title: "Erro ao adicionar vacinação!",
+          description:
+            "Revise os dados enviados ou entre em contato com o admin",
+        });
       });
   };
 

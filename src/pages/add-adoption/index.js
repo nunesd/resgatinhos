@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import {
   TextField,
@@ -17,6 +17,7 @@ import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
 import api from "../../api";
 import Add from "@mui/icons-material/Add";
 import { SCROLLBAR_OBJ } from "../../styles";
+import { ModalContext } from "../../App";
 
 const Grid = styled(MaterialGrid)(({ theme }) => ({
   maxHeight: "200px",
@@ -34,6 +35,7 @@ const FormControl = styled(MaterialFormControl)(({ theme }) => ({
 const AddAdoption = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const { setModalState } = useContext(ModalContext);
 
   const [animals, setAnimals] = useState([]);
   const [adopters, setAdopters] = useState([]);
@@ -62,9 +64,31 @@ const AddAdoption = () => {
         adoptionDate: date.toLocaleDateString(),
       }),
     })
-      .then((data) => data.json())
       .then((data) => {
-        // setGeneralState({ logged: true });
+        if (!data.ok) {
+          setModalState({
+            isOpen: true,
+            title: "Erro ao adicionar adoção!",
+            description:
+              "Revise os dados enviados ou entre em contato com o admin",
+          });
+        }
+      })
+      .then((data) => {
+        setModalState({
+          isOpen: true,
+          title: "Adotante adicionado",
+          description: "Adotante adicionado com sucesso!",
+          link: "/adopters",
+        });
+      })
+      .catch(() => {
+        setModalState({
+          isOpen: true,
+          title: "Erro ao adicionar adoção!",
+          description:
+            "Revise os dados enviados ou entre em contato com o admin",
+        });
       });
   };
 

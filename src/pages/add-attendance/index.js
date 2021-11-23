@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import {
   TextField,
@@ -18,6 +18,7 @@ import { Add } from "@mui/icons-material";
 import MainBody from "../../components/MainBody";
 import api from "../../api";
 import { SCROLLBAR_OBJ } from "../../styles";
+import { ModalContext } from "../../App";
 
 const Grid = styled(MaterialGrid)(({ theme }) => ({
   maxHeight: "200px",
@@ -30,6 +31,7 @@ const Form = styled(MaterialGrid)(({ theme }) => ({
 const AddAttendance = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const { setModalState } = useContext(ModalContext);
 
   const [animals, setAnimals] = useState([]);
   const [animalSelected, setAnimalSelected] = useState();
@@ -70,14 +72,36 @@ const AddAttendance = () => {
         specialistAttendanceReason: data.get("specialistAttendanceReason"),
       }),
     })
-      .then((data) => data.json())
       .then((data) => {
-        // setGeneralState({ logged: true });
+        if (!data.ok) {
+          setModalState({
+            isOpen: true,
+            title: "Erro ao adicionar atendimento!",
+            description:
+              "Revise os dados enviados ou entre em contato com o admin",
+          });
+        }
+      })
+      .then((data) => {
+        setModalState({
+          isOpen: true,
+          title: "Atendimento adicionado",
+          description: "Atendimento adicionado com sucesso!",
+          link: "/attendances",
+        });
+      })
+      .catch(() => {
+        setModalState({
+          isOpen: true,
+          title: "Erro ao adicionar atendimento!",
+          description:
+            "Revise os dados enviados ou entre em contato com o admin",
+        });
       });
   };
 
   return (
-    <MainBody title="Cadastro de Adotante">
+    <MainBody title="Cadastro de Atendimento">
       <Form container spacing={3} component="form" onSubmit={handleSubmit}>
         <Grid item xs={12} md={6} lg={4}>
           <FormControl fullWidth error={!animals.length}>

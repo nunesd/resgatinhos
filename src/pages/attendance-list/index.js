@@ -6,16 +6,9 @@ import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import OutlinedInput from "@mui/material/OutlinedInput";
-import {
-  Button,
-  FormControl,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-} from "@mui/material";
+import { Button, FormControl, InputAdornment, InputLabel } from "@mui/material";
 import Search from "@mui/icons-material/Search";
 import Add from "@mui/icons-material/Add";
-import Delete from "@mui/icons-material/Delete";
 import MainBody from "../../components/MainBody";
 import { TableContainer, Container, StyledTableCell, Header } from "./styles";
 import api from "../../api";
@@ -90,7 +83,6 @@ const Attendances = () => {
                 <TableRow>
                   <StyledTableCell>Nome</StyledTableCell>
                   <StyledTableCell>Veterinário</StyledTableCell>
-                  <TableCell padding="checkbox" />
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -98,17 +90,6 @@ const Attendances = () => {
                   <TableRow key={row.id}>
                     <TableCell>{row.animal.name}</TableCell>
                     <TableCell>{row.vetName}</TableCell>
-
-                    <TableCell sx={{ display: "flex" }}>
-                      <IconButton
-                        aria-label="expand row"
-                        size="small"
-                        as={Link}
-                        to={`/edit/attendance/${row.id}`}
-                      >
-                        <Delete />
-                      </IconButton>
-                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>

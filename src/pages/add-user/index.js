@@ -10,7 +10,7 @@ import { useTheme } from "@material-ui/core/styles";
 import { Add } from "@mui/icons-material";
 import MainBody from "../../components/MainBody";
 import api from "../../api";
-import { GeneralStateContext } from "../../App";
+import { ModalContext } from "../../App";
 import { SCROLLBAR_OBJ } from "../../styles";
 
 const Grid = styled(MaterialGrid)(({ theme }) => ({
@@ -25,7 +25,7 @@ const Form = styled(MaterialGrid)(({ theme }) => ({
 const AddUser = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-  const { setGeneralState } = useContext(GeneralStateContext);
+  const { setModalState } = useContext(ModalContext);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -41,9 +41,31 @@ const AddUser = () => {
         password: data.get("password"),
       }),
     })
-      .then((data) => data.json())
       .then((data) => {
-        setGeneralState({ logged: true });
+        if (!data.ok) {
+          setModalState({
+            isOpen: true,
+            title: "Erro ao adicionar usuário!",
+            description:
+              "Revise os dados enviados ou entre em contato com o admin",
+          });
+        }
+      })
+      .then((data) => {
+        setModalState({
+          isOpen: true,
+          title: "Usuário adicionado",
+          description: "Usuário adicionado com sucesso!",
+          link: "/login",
+        });
+      })
+      .catch(() => {
+        setModalState({
+          isOpen: true,
+          title: "Erro ao adicionar usuário!",
+          description:
+            "Revise os dados enviados ou entre em contato com o admin",
+        });
       });
   };
 
