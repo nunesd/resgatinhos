@@ -20,7 +20,6 @@ const Attendances = () => {
   const [filterText, setFilterText] = useState("");
 
   const onFilter = ({ target: { value: name } }) => {
-    console.log(name);
     setFilterText(name);
     if (!name) {
       setAttendances(allAttendances);
@@ -37,7 +36,6 @@ const Attendances = () => {
     api("/attendance", {})
       .then((data) => data.json())
       .then((data) => {
-        console.log(data);
         setAttendances(data);
         setAllAttendances(data);
       });

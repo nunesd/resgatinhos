@@ -34,7 +34,6 @@ const Adoptions = () => {
   const [filterText, setFilterText] = useState("");
 
   const onFilter = ({ target: { value: name } }) => {
-    console.log(name);
     setFilterText(name);
     if (!name) {
       setAdoptions(allAdoptions);
@@ -72,7 +71,6 @@ const Adoptions = () => {
     api("/adoption", {})
       .then((data) => data.json())
       .then((data) => {
-        console.log(data);
         setAdoptions(data);
         setAllAdoptions(data);
       });
@@ -119,7 +117,7 @@ const Adoptions = () => {
                   <StyledTableCell>Nome do animal</StyledTableCell>
                   {!isMobile && <StyledTableCell>Adotante</StyledTableCell>}
                   <StyledTableCell>Telefone</StyledTableCell>
-                  <TableCell padding="checkbox" />
+                  {/* <TableCell padding="checkbox" /> */}
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -131,7 +129,7 @@ const Adoptions = () => {
                     )}
                     <TableCell>{row.adopter.phoneNumber || "-"}</TableCell>
 
-                    <TableCell sx={{ display: "flex" }}>
+                    {/* <TableCell sx={{ display: "flex" }}>
                       <IconButton
                         aria-label="expand row"
                         size="small"
@@ -139,7 +137,7 @@ const Adoptions = () => {
                       >
                         <Delete />
                       </IconButton>
-                    </TableCell>
+                    </TableCell> */}
                   </TableRow>
                 ))}
               </TableBody>

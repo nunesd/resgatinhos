@@ -34,7 +34,6 @@ const Adopters = () => {
   const [filterText, setFilterText] = useState("");
 
   const onFilter = ({ target: { value: name } }) => {
-    console.log(name);
     setFilterText(name);
     if (!name) {
       setAdopters(allAdopters);
@@ -118,7 +117,7 @@ const Adopters = () => {
                   <StyledTableCell>Nome</StyledTableCell>
                   {!isMobile && <StyledTableCell>Sobrenome</StyledTableCell>}
                   <StyledTableCell>Telefone</StyledTableCell>
-                  <TableCell padding="checkbox" />
+                  {/* <TableCell padding="checkbox" /> */}
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -128,7 +127,7 @@ const Adopters = () => {
                     {!isMobile && <TableCell>{row.lastName}</TableCell>}
                     <TableCell>{row.phoneNumber || "-"}</TableCell>
 
-                    <TableCell sx={{ display: "flex" }}>
+                    {/* <TableCell sx={{ display: "flex" }}>
                       <IconButton
                         aria-label="expand row"
                         size="small"
@@ -136,7 +135,7 @@ const Adopters = () => {
                       >
                         <Delete />
                       </IconButton>
-                    </TableCell>
+                    </TableCell> */}
                   </TableRow>
                 ))}
               </TableBody>

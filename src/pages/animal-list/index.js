@@ -36,7 +36,6 @@ const Animals = () => {
   const [filterText, setFilterText] = useState("");
 
   const onFilter = ({ target: { value: name } }) => {
-    console.log(name);
     setFilterText(name);
     if (!name) {
       setAnimals(allAnimals);
@@ -74,7 +73,6 @@ const Animals = () => {
     api("/animal", {})
       .then((data) => data.json())
       .then((data) => {
-        console.log(data);
         setAnimals(data);
         setAllAnimals(data);
       });
@@ -124,7 +122,7 @@ const Animals = () => {
                     <StyledTableCell>Data de resgate</StyledTableCell>
                   )}
                   {!isMobile && <StyledTableCell>Castrado</StyledTableCell>}
-                  <TableCell padding="checkbox" />
+                  {/* <TableCell padding="checkbox" /> */}
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -161,13 +159,13 @@ const Animals = () => {
                       >
                         <Edit />
                       </IconButton>
-                      <IconButton
+                      {/* <IconButton
                         aria-label="expand row"
                         size="small"
                         onClick={onDelete(row.id)}
                       >
                         <Delete />
-                      </IconButton>
+                      </IconButton> */}
                     </TableCell>
                   </TableRow>
                 ))}

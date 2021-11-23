@@ -78,7 +78,6 @@ const EditAnimal = () => {
         .then((data) => data.json())
         .then((data) => {
           setAnimal(data);
-          console.log(data);
           data.rescueDate &&
             setRescueDate(DateTime.fromFormat(data.rescueDate, "dd/MM/yyyy"));
           data.castrationDate &&

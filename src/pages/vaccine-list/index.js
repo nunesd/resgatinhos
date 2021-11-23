@@ -30,7 +30,6 @@ const Vaccines = () => {
   const [filterText, setFilterText] = useState("");
 
   const onFilter = ({ target: { value: name } }) => {
-    console.log(name);
     setFilterText(name);
     if (!name) {
       setVaccines(allVaccines);
@@ -108,7 +107,7 @@ const Vaccines = () => {
               <TableRow>
                 <TableCell padding="checkbox" />
                 <StyledTableCell>Nome</StyledTableCell>
-                <TableCell padding="checkbox" />
+                {/* <TableCell padding="checkbox" /> */}
               </TableRow>
             </TableHead>
             <TableBody>
@@ -126,7 +125,7 @@ const Vaccines = () => {
                   </TableCell>
                   <TableCell>{row.vaccineName}</TableCell>
 
-                  <TableCell sx={{ display: "flex" }}>
+                  {/* <TableCell sx={{ display: "flex" }}>
                     <IconButton
                       aria-label="expand row"
                       size="small"
@@ -134,7 +133,7 @@ const Vaccines = () => {
                     >
                       <Delete />
                     </IconButton>
-                  </TableCell>
+                  </TableCell> */}
                 </TableRow>
               ))}
             </TableBody>

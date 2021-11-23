@@ -6,22 +6,18 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { GeneralStateContext } from "../../App";
+import { GeneralStateContext, ModalContext } from "../../App";
 import api from "../../api";
 
 const theme = createTheme({});
 
 const Login = () => {
   const { setGeneralState } = useContext(GeneralStateContext);
+  const { setModalState } = useContext(ModalContext);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      username: data.get("email"),
-      password: data.get("password"),
-    });
 
     api("/login", {
       method: "POST",
@@ -41,6 +37,12 @@ const Login = () => {
       })
       .catch(() => {
         setGeneralState({ logged: false });
+        setModalState({
+          isOpen: true,
+          title: "Erro ao fazer login!",
+          description:
+            "Revise os dados enviados ou entre em contato com o admin",
+        });
         //TODO: modal de erro no login
       });
   };
