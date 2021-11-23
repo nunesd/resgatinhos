@@ -56,7 +56,7 @@ const AddUser = () => {
           isOpen: true,
           title: "Usuário adicionado",
           description: "Usuário adicionado com sucesso!",
-          link: "/login",
+          link: "/",
         });
       })
       .catch(() => {

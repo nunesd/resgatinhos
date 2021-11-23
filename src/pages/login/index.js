@@ -2,14 +2,11 @@ import React, { useContext } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { GeneralStateContext } from "../../App";
-import { Link as RouterLink } from "react-router-dom";
 import api from "../../api";
 
 const theme = createTheme({});
@@ -97,13 +94,6 @@ const Login = () => {
             >
               Entrar
             </Button>
-            <Grid container>
-              <Grid item>
-                <Link component={RouterLink} to="/add/user" variant="body2">
-                  Não tem conta? Crie uma!
-                </Link>
-              </Grid>
-            </Grid>
           </Box>
         </Box>
       </Container>

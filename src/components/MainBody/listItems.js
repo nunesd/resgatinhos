@@ -9,6 +9,7 @@ import ColorizeIcon from "@mui/icons-material/Colorize";
 import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
 import HealthAndSafetyIcon from "@mui/icons-material/HealthAndSafety";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
+import Add from "@mui/icons-material/Add";
 import AddReactionIcon from "@mui/icons-material/AddReaction";
 import AddIcon from "@mui/icons-material/Add";
 import { Link } from "react-router-dom";
@@ -87,6 +88,13 @@ export const secondaryListItems = (
         <HealthAndSafetyIcon />
       </ListItemIcon>
       <ListItemText primary="Atendimento" />
+    </ListItem>
+    <ListSubheader inset>Admin</ListSubheader>
+    <ListItem button component={Link} to="/add/animal">
+      <ListItemIcon>
+        <Add />
+      </ListItemIcon>
+      <ListItemText primary="Usuário" />
     </ListItem>
   </div>
 );
