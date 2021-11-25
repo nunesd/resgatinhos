@@ -15,6 +15,7 @@ import AttendanceList from "../../pages/attendance-list";
 import AddAttendance from "../../pages/add-attendance";
 import AddAnimal from "../../pages/add-animal";
 import EditAnimal from "../../pages/edit-animal";
+import ViewAnimal from "../../pages/view-animal";
 
 const Routes = () => {
   return (
@@ -32,6 +33,7 @@ const Routes = () => {
       <Route exact path="/add/user" render={() => <AddUser />} />
       <Route exact path="/add/attendance" render={() => <AddAttendance />} />
       <Route exact path="/add/animal" render={() => <AddAnimal />} />
+      <Route exact path="/view/animal/:id" render={() => <ViewAnimal />} />
       <Route exact path="/edit/animal/:id" render={() => <EditAnimal />} />
       <Route exact path="*" render={() => <div>Página não encontrada</div>} />
     </Switch>

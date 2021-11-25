@@ -122,7 +122,7 @@ const Animals = () => {
                     <StyledTableCell>Data de resgate</StyledTableCell>
                   )}
                   {!isMobile && <StyledTableCell>Castrado</StyledTableCell>}
-                  {/* <TableCell padding="checkbox" /> */}
+                  <TableCell padding="checkbox" />
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -133,7 +133,7 @@ const Animals = () => {
                         aria-label="expand row"
                         size="small"
                         as={Link}
-                        to="/1"
+                        to={`/view/animal/${row.id}`}
                       >
                         <OpenInNew />
                       </IconButton>
@@ -155,7 +155,7 @@ const Animals = () => {
                         aria-label="expand row"
                         size="small"
                         as={Link}
-                        to={`/edit/animal/${row.id}`}
+                        to={`/view/animal/${row.id}`}
                       >
                         <Edit />
                       </IconButton>

@@ -6,4 +6,5 @@ export const Container = styled(MuiContainer)(({ theme }) => ({
   display: "flex",
   margin: theme.spacing(2),
   height: "calc(100% - 110px) ",
+  overflow: "hidden",
 }));
