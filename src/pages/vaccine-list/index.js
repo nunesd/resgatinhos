@@ -105,7 +105,6 @@ const Vaccines = () => {
           <Table size="medium">
             <TableHead>
               <TableRow>
-                <TableCell padding="checkbox" />
                 <StyledTableCell>Nome</StyledTableCell>
                 {/* <TableCell padding="checkbox" /> */}
               </TableRow>
@@ -113,7 +112,9 @@ const Vaccines = () => {
             <TableBody>
               {vaccines.map((row) => (
                 <TableRow key={row.id}>
-                  <TableCell padding="checkbox">
+                  <TableCell>{row.vaccineName}</TableCell>
+
+                  {/* <TableCell padding="checkbox">
                     <IconButton
                       aria-label="expand row"
                       size="small"
@@ -122,9 +123,7 @@ const Vaccines = () => {
                     >
                       <OpenInNew />
                     </IconButton>
-                  </TableCell>
-                  <TableCell>{row.vaccineName}</TableCell>
-
+                  </TableCell> */}
                   {/* <TableCell sx={{ display: "flex" }}>
                     <IconButton
                       aria-label="expand row"
