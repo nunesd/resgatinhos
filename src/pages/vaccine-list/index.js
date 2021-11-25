@@ -17,10 +17,11 @@ import Search from "@mui/icons-material/Search";
 import OpenInNew from "@mui/icons-material/OpenInNew";
 import Add from "@mui/icons-material/Add";
 import Delete from "@mui/icons-material/Delete";
-import MainBody from "../../components/MainBody";
 import { TableContainer, Container, StyledTableCell, Header } from "./styles";
-import api from "../../api";
+import MainBody from "../../components/MainBody";
+import NoContent from "../../components/NoContent";
 import { ModalContext } from "../../App";
+import api from "../../api";
 
 const Vaccines = () => {
   const { setModalState } = useContext(ModalContext);
@@ -102,19 +103,22 @@ const Vaccines = () => {
           </Link>
         </Header>
         <TableContainer>
-          <Table size="medium">
-            <TableHead>
-              <TableRow>
-                <StyledTableCell>Nome</StyledTableCell>
-                {/* <TableCell padding="checkbox" /> */}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {vaccines.map((row) => (
-                <TableRow key={row.id}>
-                  <TableCell>{row.vaccineName}</TableCell>
+          {allVaccines?.length === 0 ? (
+            <NoContent />
+          ) : (
+            <Table size="medium">
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell>Nome</StyledTableCell>
+                  {/* <TableCell padding="checkbox" /> */}
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {vaccines.map((row) => (
+                  <TableRow key={row.id}>
+                    <TableCell>{row.vaccineName}</TableCell>
 
-                  {/* <TableCell padding="checkbox">
+                    {/* <TableCell padding="checkbox">
                     <IconButton
                       aria-label="expand row"
                       size="small"
@@ -124,7 +128,7 @@ const Vaccines = () => {
                       <OpenInNew />
                     </IconButton>
                   </TableCell> */}
-                  {/* <TableCell sx={{ display: "flex" }}>
+                    {/* <TableCell sx={{ display: "flex" }}>
                     <IconButton
                       aria-label="expand row"
                       size="small"
@@ -133,10 +137,11 @@ const Vaccines = () => {
                       <Delete />
                     </IconButton>
                   </TableCell> */}
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          )}
         </TableContainer>
       </Container>
     </MainBody>

@@ -90,7 +90,7 @@ export const secondaryListItems = (
       <ListItemText primary="Atendimento" />
     </ListItem>
     <ListSubheader inset>Admin</ListSubheader>
-    <ListItem button component={Link} to="/add/animal">
+    <ListItem button component={Link} to="/add/user">
       <ListItemIcon>
         <Add />
       </ListItemIcon>
