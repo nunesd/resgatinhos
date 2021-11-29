@@ -155,7 +155,7 @@ const Animals = () => {
                         aria-label="expand row"
                         size="small"
                         as={Link}
-                        to={`/view/animal/${row.id}`}
+                        to={`/edit/animal/${row.id}`}
                       >
                         <Edit />
                       </IconButton>
