@@ -204,7 +204,6 @@ const AddAnimal = () => {
             variant="outlined"
             fullWidth
             disabled={!needAttendance}
-            type="password"
             label="Motivo do atendimento"
             name="attendanceReason"
             required
