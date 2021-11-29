@@ -207,6 +207,8 @@ const AddAnimal = () => {
             label="Motivo do atendimento"
             name="attendanceReason"
             required
+            multiline
+            rows={4}
           />
         </Grid>
         <Grid item xs={12} sx={{ display: "flex", justifyContent: "flex-end" }}>
