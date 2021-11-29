@@ -82,7 +82,7 @@ const AddAnimal = () => {
         </Grid>
         <Grid item xs={6} md={4} lg={3}>
           <Texbox
-            title="é Cadastrado"
+            title="é Castrado"
             description={getData(animals?.isCastrated ? "Sim" : "Não")}
           />
         </Grid>
