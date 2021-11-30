@@ -33,9 +33,9 @@ const AddAnimal = () => {
 
   const animals = allAnimalInfos?.Animals?.[0]?.[0];
   const adoptions = allAnimalInfos?.Adoptions?.[0]?.[0];
-  const vaccinations = allAnimalInfos?.Vaccinations?.[0]?.[0];
-  const attendances = allAnimalInfos?.Attendances?.[0]?.[0];
-  console.log(adoptions);
+  const vaccinations = allAnimalInfos?.Vaccinations?.[0];
+  const attendances = allAnimalInfos?.Attendances?.[0];
+  console.log(vaccinations);
 
   return (
     <MainBody title="Cadastro de Animal">
@@ -165,41 +165,45 @@ const AddAnimal = () => {
         <Grid item xs={12} lg={12}>
           <Divider light />
         </Grid>
-        <Grid item xs={12}>
-          <Typography
-            component="h2"
-            variant="h6"
-            color="inherit"
-            noWrap
-            sx={{ flexGrow: 1 }}
-          >
-            Vacinações
-          </Typography>
-        </Grid>
-        {[1].map(() => (
+        {vaccinations?.length ? (
+          <Grid item xs={12}>
+            <Typography
+              component="h2"
+              variant="h6"
+              color="inherit"
+              noWrap
+              sx={{ flexGrow: 1 }}
+            >
+              Vacinações
+            </Typography>
+          </Grid>
+        ) : (
+          ""
+        )}
+        {vaccinations?.map((vacinnation) => (
           <>
             <Grid item xs={6} lg={4}>
               <Texbox
                 title="Nome do veterinário"
-                description={getData(vaccinations?.vetName)}
+                description={getData(vacinnation?.vetName)}
               />
             </Grid>
             <Grid item xs={6} lg={4}>
               <Texbox
                 title="vacina"
-                description={getData(vaccinations?.vaccine?.vaccineName)}
+                description={getData(vacinnation?.vaccine?.vaccineName)}
               />
             </Grid>
             <Grid item xs={6} lg={4}>
               <Texbox
                 title="informações"
-                description={getData(vaccinations?.informations)}
+                description={getData(vacinnation?.informations)}
               />
             </Grid>
             <Grid item xs={6} lg={4}>
               <Texbox
                 title="Data da vacinação"
-                description={getData(vaccinations?.vaccineDate)}
+                description={getData(vacinnation?.vaccineDate)}
               />
             </Grid>
             <Grid item xs={12} lg={12}>
@@ -207,51 +211,55 @@ const AddAnimal = () => {
             </Grid>
           </>
         ))}
-        <Grid item xs={12}>
-          <Typography
-            component="h2"
-            variant="h6"
-            color="inherit"
-            noWrap
-            sx={{ flexGrow: 1 }}
-          >
-            Atendimentos
-          </Typography>
-        </Grid>
-        {[1, 1].map(() => (
+        {attendances?.length ? (
+          <Grid item xs={12}>
+            <Typography
+              component="h2"
+              variant="h6"
+              color="inherit"
+              noWrap
+              sx={{ flexGrow: 1 }}
+            >
+              Atendimentos
+            </Typography>
+          </Grid>
+        ) : (
+          ""
+        )}
+        {attendances?.map((attendance) => (
           <>
             <Grid item xs={6} md={6} lg={4}>
               <Texbox
                 title="Nome do veterinário"
-                description={getData(attendances?.vetName)}
+                description={getData(attendance?.vetName)}
               />
             </Grid>
             <Grid item xs={6} md={6} lg={4}>
               <Texbox
                 title="Precisou de atendimento médico"
                 description={getData(
-                  attendances?.needMedicalAppointment ? "Sim" : "Não"
+                  attendance?.needMedicalAppointment ? "Sim" : "Não"
                 )}
               />
             </Grid>
             <Grid item xs={6} md={6} lg={4}>
               <Texbox
                 title="Motivo do atendimento"
-                description={getData(attendances?.medicalAppointmentReason)}
+                description={getData(attendance?.medicalAppointmentReason)}
               />
             </Grid>
             <Grid item xs={6} md={6} lg={4}>
               <Texbox
                 title="Precisou de atendimento médico especializado"
                 description={getData(
-                  attendances?.specialistAttendanceReason ? "Sim" : "Não"
+                  attendance?.specialistAttendanceReason ? "Sim" : "Não"
                 )}
               />
             </Grid>
             <Grid item xs={6} lg={4}>
               <Texbox
                 title="Motivo do atendimento especializado"
-                description={getData(attendances?.specialistAttendanceReason)}
+                description={getData(attendance?.specialistAttendanceReason)}
               />
             </Grid>
             <Grid item xs={12} lg={12}>
