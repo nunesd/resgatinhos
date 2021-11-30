@@ -148,13 +148,13 @@ const AddAdoption = () => {
         <Grid item xs={12} md={6} lg={4}>
           <FormControl fullWidth error={!vaccines.length}>
             <InputLabel id="demo-simple-select-helper-label">
-              {!vaccines.length ? "Nenhum animal encontrado" : "Vacinas"}
+              {!vaccines.length ? "Nenhuma vacina encontrada" : "Vacinas"}
             </InputLabel>
             <Select
               labelId="demo-simple-select-helper-label"
               id="demo-simple-select-helper"
               value={vaccineSelected}
-              label={!vaccines.length ? "Nenhum animal encontrado" : "Vacinas"}
+              label={!vaccines.length ? "Nenhuma vacina encontrada" : "Vacinas"}
               onChange={handleVaccineSelected}
             >
               {vaccines?.map((vaccine) => (

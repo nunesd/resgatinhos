@@ -146,7 +146,7 @@ const Animals = () => {
                           ? "-"
                           : row.isCastrated
                           ? "Sim"
-                          : "Nâo"}
+                          : "Não"}
                       </TableCell>
                     )}
 
