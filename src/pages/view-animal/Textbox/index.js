@@ -14,7 +14,7 @@ const Texbox = ({ title, description }) => {
       >
         {title}
       </Typography>
-      <Typography color="inherit" noWrap sx={{ paddingLeft: 3 }}>
+      <Typography color="inherit" sx={{ paddingLeft: 3 }}>
         {description}
       </Typography>
     </Container>
