@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Resgatinhos
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Project created to manage all adopted cats, and that are available for adoption, at the ONG Resgatatinhos.
 
 ## Available Scripts
 
