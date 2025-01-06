@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -18,14 +18,14 @@ import Search from '@mui/icons-material/Search';
 import Add from '@mui/icons-material/Add';
 import MainBody from '../../components/MainBody';
 import NoContent from '../../components/NoContent';
-import { ModalContext } from '../../App';
+// import { ModalContext } from '../../App';
 import { TableContainer, Container, StyledTableCell, Header } from './styles';
 import api from '../../api';
 
 const Adoptions = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const { setModalState } = useContext(ModalContext);
+  // const { setModalState } = useContext(ModalContext);
 
   const [adoptions, setAdoptions] = useState([]);
   const [allAdoptions, setAllAdoptions] = useState();
