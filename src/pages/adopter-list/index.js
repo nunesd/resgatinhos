@@ -1,37 +1,34 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import OutlinedInput from "@mui/material/OutlinedInput";
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import OutlinedInput from '@mui/material/OutlinedInput';
 import {
   Button,
   FormControl,
-  IconButton,
   InputAdornment,
   InputLabel,
   useMediaQuery,
   useTheme,
-} from "@mui/material";
-import Search from "@mui/icons-material/Search";
-import Add from "@mui/icons-material/Add";
-import Delete from "@mui/icons-material/Delete";
-import MainBody from "../../components/MainBody";
-import NoContent from "../../components/NoContent";
-import { TableContainer, Container, StyledTableCell, Header } from "./styles";
-import { ModalContext } from "../../App";
-import api from "../../api";
+} from '@mui/material';
+import Search from '@mui/icons-material/Search';
+import Add from '@mui/icons-material/Add';
+import MainBody from '../../components/MainBody';
+import NoContent from '../../components/NoContent';
+import { TableContainer, Container, StyledTableCell, Header } from './styles';
+import api from '../../api';
 
 const Adopters = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-  const { setModalState } = useContext(ModalContext);
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  // const { setModalState } = useContext(ModalContext);
 
   const [adopters, setAdopters] = useState([]);
   const [allAdopters, setAllAdopters] = useState([]);
-  const [filterText, setFilterText] = useState("");
+  const [filterText, setFilterText] = useState('');
 
   const onFilter = ({ target: { value: name } }) => {
     setFilterText(name);
@@ -46,29 +43,29 @@ const Adopters = () => {
     );
   };
 
-  const onDelete = (id) => () => {
-    api(`/adopter/${id}`, { method: "DELETE" }).then((data) => {
-      if (!data.ok) {
-        setModalState({
-          isOpen: true,
-          title: "Erro ao deletar adotante!",
-          description:
-            "Revise os dados enviados ou entre em contato com o admin",
-        });
-        return;
-      }
+  // const onDelete = (id) => () => {
+  //   api(`/adopter/${id}`, { method: 'DELETE' }).then((data) => {
+  //     if (!data.ok) {
+  //       setModalState({
+  //         isOpen: true,
+  //         title: 'Erro ao deletar adotante!',
+  //         description:
+  //           'Revise os dados enviados ou entre em contato com o admin',
+  //       });
+  //       return;
+  //     }
 
-      setModalState({
-        isOpen: true,
-        title: "Adotante deletado",
-        description: "Adotante deletado com sucesso!",
-        refresh: true,
-      });
-    });
-  };
+  //     setModalState({
+  //       isOpen: true,
+  //       title: 'Adotante deletado',
+  //       description: 'Adotante deletado com sucesso!',
+  //       refresh: true,
+  //     });
+  //   });
+  // };
 
   useEffect(() => {
-    api("/adopter", {})
+    api('/adopter', {})
       .then((data) => data.json())
       .then((data) => {
         setAdopters(data);
@@ -80,7 +77,7 @@ const Adopters = () => {
     <MainBody title="Adotantes">
       <Container>
         <Header>
-          <FormControl fullWidth sx={{ p: 0.1, mb: 3, display: "flex" }}>
+          <FormControl fullWidth sx={{ p: 0.1, mb: 3, display: 'flex' }}>
             <InputLabel htmlFor="outlined-adornment-amount">
               Procurar adotantes
             </InputLabel>
@@ -89,7 +86,7 @@ const Adopters = () => {
               value={filterText}
               onChange={onFilter}
               disabled={allAdopters?.length === 0}
-              placeholder={allAdopters?.length === 0 && "Bloqueado"}
+              placeholder={allAdopters?.length === 0 && 'Bloqueado'}
               startAdornment={
                 <InputAdornment position="start">
                   <Search />
@@ -99,7 +96,7 @@ const Adopters = () => {
           </FormControl>
           <Link as={Link} to="/add/adopter">
             <Button
-              sx={{ ml: 0.5, width: "100px", height: "56px" }}
+              sx={{ ml: 0.5, width: '100px', height: '56px' }}
               variant="contained"
             >
               Criar
@@ -125,7 +122,7 @@ const Adopters = () => {
                   <TableRow key={row.id}>
                     <TableCell>{row.firstName}</TableCell>
                     {!isMobile && <TableCell>{row.lastName}</TableCell>}
-                    <TableCell>{row.phoneNumber || "-"}</TableCell>
+                    <TableCell>{row.phoneNumber || '-'}</TableCell>
 
                     {/* <TableCell sx={{ display: "flex" }}>
                       <IconButton

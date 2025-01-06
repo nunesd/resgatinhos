@@ -1,71 +1,71 @@
-import React, { useContext } from "react";
-import { styled } from "@mui/material/styles";
+import React, { useContext } from 'react';
+import { styled } from '@mui/material/styles';
 import {
   TextField,
   Grid as MaterialGrid,
   Button,
   useMediaQuery,
-} from "@mui/material";
-import MainBody from "../../components/MainBody";
-import { useTheme } from "@material-ui/core";
-import Add from "@mui/icons-material/Add";
-import api from "../../api";
-import { SCROLLBAR_OBJ } from "../../styles";
-import { ModalContext } from "../../App";
+} from '@mui/material';
+import MainBody from '../../components/MainBody';
+import { useTheme } from '@material-ui/core';
+import Add from '@mui/icons-material/Add';
+import api from '../../api';
+import { SCROLLBAR_OBJ } from '../../styles';
+import { ModalContext } from '../../App';
 
-const Grid = styled(MaterialGrid)(({ theme }) => ({
-  maxHeight: "200px",
+const Grid = styled(MaterialGrid)(() => ({
+  maxHeight: '200px',
 }));
 
-const Form = styled(MaterialGrid)(({ theme }) => ({
-  overflow: "auto",
+const Form = styled(MaterialGrid)(() => ({
+  overflow: 'auto',
   ...SCROLLBAR_OBJ,
 }));
 
 const AddAdopter = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const { setModalState } = useContext(ModalContext);
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    api("/adopter", {
-      method: "POST",
+    api('/adopter', {
+      method: 'POST',
       body: JSON.stringify({
-        firstName: data.get("firstName"),
-        lastName: data.get("lastName"),
-        cpf: data.get("cpf"),
-        rg: data.get("rg"),
-        phoneNumber: data.get("phoneNumber"),
-        socialNetwork: data.get("socialNetwork"),
-        info: data.get("info"),
+        firstName: data.get('firstName'),
+        lastName: data.get('lastName'),
+        cpf: data.get('cpf'),
+        rg: data.get('rg'),
+        phoneNumber: data.get('phoneNumber'),
+        socialNetwork: data.get('socialNetwork'),
+        info: data.get('info'),
       }),
     })
       .then((data) => {
         if (!data.ok) {
           setModalState({
             isOpen: true,
-            title: "Erro ao adicionar adotante!",
+            title: 'Erro ao adicionar adotante!',
             description:
-              "Revise os dados enviados ou entre em contato com o admin",
+              'Revise os dados enviados ou entre em contato com o admin',
           });
         }
       })
-      .then((data) => {
+      .then(() => {
         setModalState({
           isOpen: true,
-          title: "Adotante adicionado",
-          description: "Adotante adicionado com sucesso!",
-          link: "/adopters",
+          title: 'Adotante adicionado',
+          description: 'Adotante adicionado com sucesso!',
+          link: '/adopters',
         });
       })
       .catch(() => {
         setModalState({
           isOpen: true,
-          title: "Erro ao adicionar adotante!",
+          title: 'Erro ao adicionar adotante!',
           description:
-            "Revise os dados enviados ou entre em contato com o admin",
+            'Revise os dados enviados ou entre em contato com o admin',
         });
       });
   };
@@ -121,13 +121,13 @@ const AddAdopter = () => {
             name="info"
           />
         </Grid>
-        <Grid item xs={12} sx={{ display: "flex", justifyContent: "flex-end" }}>
+        <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Button
             sx={{
               ml: 0.5,
-              width: "100px",
-              height: "56px",
-              ...(isMobile && { width: "100%" }),
+              width: '100px',
+              height: '56px',
+              ...(isMobile && { width: '100%' }),
             }}
             variant="contained"
             type="submit"

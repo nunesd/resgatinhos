@@ -1,23 +1,23 @@
-import React, { useContext } from "react";
-import { Modal as MaterialModal, Typography, Box, Button } from "@mui/material";
-import { ModalContext } from "../../App";
-import { Link } from "react-router-dom";
+import React, { useContext } from 'react';
+import { Modal as MaterialModal, Typography, Box, Button } from '@mui/material';
+import { ModalContext } from '../../App';
+import { Link } from 'react-router-dom';
 // import { Box } from "@mui/system";
 
 const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
   width: 400,
-  bgcolor: "background.paper",
+  bgcolor: 'background.paper',
   outline: 0,
   borderRadius: 4,
   boxShadow: 24,
   p: 4,
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
 };
 
 const Modal = () => {
@@ -31,7 +31,6 @@ const Modal = () => {
       <Box sx={style}>
         <Typography
           onClick={() => {
-            debugger;
             setModalState({ isOpen: false });
           }}
           id="modal-modal-title"

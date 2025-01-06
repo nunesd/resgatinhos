@@ -1,13 +1,13 @@
-import { TableCell, tableCellClasses } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import { TableCell, tableCellClasses } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
-export const TableContainer = styled("div")``;
+export const TableContainer = styled('div')``;
 
-export const Header = styled("div")`
+export const Header = styled('div')`
   display: flex;
 `;
 
-export const Container = styled("div")`
+export const Container = styled('div')`
   flex-direction: column;
   flex: 1;
 
@@ -18,6 +18,6 @@ export const Container = styled("div")`
 
 export const StyledTableCell = styled(TableCell)(() => ({
   [`&.${tableCellClasses.head}`]: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
 }));

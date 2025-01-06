@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { styled } from "@mui/material/styles";
+import React, { useContext, useState } from 'react';
+import { styled } from '@mui/material/styles';
 import {
   TextField,
   Grid as MaterialGrid,
@@ -8,27 +8,27 @@ import {
   FormControlLabel,
   Switch,
   Typography,
-} from "@mui/material";
-import { useTheme } from "@material-ui/core/styles";
-import { Add } from "@mui/icons-material";
-import MainBody from "../../components/MainBody";
-import api from "../../api";
-import { DesktopDatePicker } from "@mui/lab";
-import { SCROLLBAR_OBJ } from "../../styles";
-import { ModalContext } from "../../App";
+} from '@mui/material';
+import { useTheme } from '@material-ui/core/styles';
+import { Add } from '@mui/icons-material';
+import MainBody from '../../components/MainBody';
+import api from '../../api';
+import { DesktopDatePicker } from '@mui/lab';
+import { SCROLLBAR_OBJ } from '../../styles';
+import { ModalContext } from '../../App';
 
-const Grid = styled(MaterialGrid)(({ theme }) => ({
-  maxHeight: "200px",
+const Grid = styled(MaterialGrid)(() => ({
+  maxHeight: '200px',
 }));
 
-const Form = styled(MaterialGrid)(({ theme }) => ({
-  overflow: "auto",
+const Form = styled(MaterialGrid)(() => ({
+  overflow: 'auto',
   ...SCROLLBAR_OBJ,
 }));
 
 const AddAnimal = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const { setModalState } = useContext(ModalContext);
 
   const [needAttendance, setNeedAttendance] = useState(false);
@@ -40,45 +40,45 @@ const AddAnimal = () => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    api("/animal", {
-      method: "POST",
+    api('/animal', {
+      method: 'POST',
       body: JSON.stringify({
-        name: data.get("name"),
-        age: data.get("age"),
-        weight: data.get("weight"),
+        name: data.get('name'),
+        age: data.get('age'),
+        weight: data.get('weight'),
         rescueDate: rescueDate.toLocaleDateString(),
         needAttendance,
-        attendanceDays: data.get("attendanceDays"),
-        attendanceReason: data.get("attendanceReason"),
+        attendanceDays: data.get('attendanceDays'),
+        attendanceReason: data.get('attendanceReason'),
         isCastrated,
         castrationDate: castrationDate.toLocaleDateString(),
-        vetName: data.get("vetName"),
+        vetName: data.get('vetName'),
       }),
     })
       .then((data) => {
         if (!data.ok) {
           setModalState({
             isOpen: true,
-            title: "Erro ao adicionar animal!",
+            title: 'Erro ao adicionar animal!',
             description:
-              "Revise os dados enviados ou entre em contato com o admin",
+              'Revise os dados enviados ou entre em contato com o admin',
           });
         }
       })
-      .then((data) => {
+      .then(() => {
         setModalState({
           isOpen: true,
-          title: "Animal adicionado",
-          description: "Animal adicionado com sucesso!",
-          link: "/",
+          title: 'Animal adicionado',
+          description: 'Animal adicionado com sucesso!',
+          link: '/',
         });
       })
       .catch(() => {
         setModalState({
           isOpen: true,
-          title: "Erro ao adicionar animal!",
+          title: 'Erro ao adicionar animal!',
           description:
-            "Revise os dados enviados ou entre em contato com o admin",
+            'Revise os dados enviados ou entre em contato com o admin',
         });
       });
   };
@@ -205,13 +205,13 @@ const AddAnimal = () => {
             rows={4}
           />
         </Grid>
-        <Grid item xs={12} sx={{ display: "flex", justifyContent: "flex-end" }}>
+        <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Button
             sx={{
               ml: 0.5,
-              width: "100px",
-              height: "56px",
-              ...(isMobile && { width: "100%" }),
+              width: '100px',
+              height: '56px',
+              ...(isMobile && { width: '100%' }),
             }}
             variant="contained"
             type="submit"

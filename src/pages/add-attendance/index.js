@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import { styled } from "@mui/material/styles";
+import React, { useContext, useEffect, useState } from 'react';
+import { styled } from '@mui/material/styles';
 import {
   TextField,
   Grid as MaterialGrid,
@@ -13,24 +13,24 @@ import {
   Select,
   MenuItem,
   FormHelperText,
-} from "@mui/material";
-import { Add } from "@mui/icons-material";
-import MainBody from "../../components/MainBody";
-import api from "../../api";
-import { SCROLLBAR_OBJ } from "../../styles";
-import { ModalContext } from "../../App";
+} from '@mui/material';
+import { Add } from '@mui/icons-material';
+import MainBody from '../../components/MainBody';
+import api from '../../api';
+import { SCROLLBAR_OBJ } from '../../styles';
+import { ModalContext } from '../../App';
 
-const Grid = styled(MaterialGrid)(({ theme }) => ({
-  maxHeight: "200px",
+const Grid = styled(MaterialGrid)(() => ({
+  maxHeight: '200px',
 }));
 
-const Form = styled(MaterialGrid)(({ theme }) => ({
-  overflow: "auto",
+const Form = styled(MaterialGrid)(() => ({
+  overflow: 'auto',
   ...SCROLLBAR_OBJ,
 }));
 const AddAttendance = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const { setModalState } = useContext(ModalContext);
 
   const [animals, setAnimals] = useState([]);
@@ -41,7 +41,7 @@ const AddAttendance = () => {
 
   useEffect(() => {
     const getAnimals = async () => {
-      await api("/animal", {})
+      await api('/animal', {})
         .then((data) => data.json())
         .then((data) => {
           setAnimals(data);
@@ -63,39 +63,39 @@ const AddAttendance = () => {
     const data = new FormData(event.currentTarget);
 
     api(`/attendance/animal/${animalSelected}`, {
-      method: "POST",
+      method: 'POST',
       body: JSON.stringify({
-        vetName: data.get("vetName"),
+        vetName: data.get('vetName'),
         needMedicalAppointment: needMedicalAppointment,
         needSpecialistAttendance: needSpecialistAttendance,
-        medicalAppointmentReason: data.get("medicalAppointmentReason"),
-        specialistAttendanceReason: data.get("specialistAttendanceReason"),
+        medicalAppointmentReason: data.get('medicalAppointmentReason'),
+        specialistAttendanceReason: data.get('specialistAttendanceReason'),
       }),
     })
       .then((data) => {
         if (!data.ok) {
           setModalState({
             isOpen: true,
-            title: "Erro ao adicionar atendimento!",
+            title: 'Erro ao adicionar atendimento!',
             description:
-              "Revise os dados enviados ou entre em contato com o admin",
+              'Revise os dados enviados ou entre em contato com o admin',
           });
         }
       })
-      .then((data) => {
+      .then(() => {
         setModalState({
           isOpen: true,
-          title: "Atendimento adicionado",
-          description: "Atendimento adicionado com sucesso!",
-          link: "/attendances",
+          title: 'Atendimento adicionado',
+          description: 'Atendimento adicionado com sucesso!',
+          link: '/attendances',
         });
       })
       .catch(() => {
         setModalState({
           isOpen: true,
-          title: "Erro ao adicionar atendimento!",
+          title: 'Erro ao adicionar atendimento!',
           description:
-            "Revise os dados enviados ou entre em contato com o admin",
+            'Revise os dados enviados ou entre em contato com o admin',
         });
       });
   };
@@ -106,13 +106,13 @@ const AddAttendance = () => {
         <Grid item xs={12} md={6} lg={4}>
           <FormControl fullWidth error={!animals.length}>
             <InputLabel id="demo-simple-select-helper-label">
-              {!animals.length ? "Nenhum animal encontrado" : "Animal"}
+              {!animals.length ? 'Nenhum animal encontrado' : 'Animal'}
             </InputLabel>
             <Select
               labelId="demo-simple-select-helper-label"
               id="demo-simple-select-helper"
               value={animalSelected}
-              label={!animals.length ? "Nenhum animal encontrado" : "Animal"}
+              label={!animals.length ? 'Nenhum animal encontrado' : 'Animal'}
               he
               onChange={handleAnimalSelected}
             >
@@ -122,7 +122,7 @@ const AddAttendance = () => {
                 </MenuItem>
               ))}
             </Select>
-            {!Boolean(animals.length) && (
+            {!animals.length && (
               <FormHelperText>
                 Para criar um atendimento, é preciso ter uma animal cadastrado
               </FormHelperText>
@@ -179,13 +179,13 @@ const AddAttendance = () => {
             disabled={!needSpecialistAttendance}
           />
         </Grid>
-        <Grid item xs={12} sx={{ display: "flex", justifyContent: "flex-end" }}>
+        <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Button
             sx={{
               ml: 0.5,
-              width: "100px",
-              height: "56px",
-              ...(isMobile && { width: "100%" }),
+              width: '100px',
+              height: '56px',
+              ...(isMobile && { width: '100%' }),
             }}
             variant="contained"
             type="submit"

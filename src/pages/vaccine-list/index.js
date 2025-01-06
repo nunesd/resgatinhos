@@ -1,9 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   Button,
   FormControl,
-  IconButton,
   InputAdornment,
   InputLabel,
   Table,
@@ -12,23 +11,20 @@ import {
   TableHead,
   TableRow,
   OutlinedInput,
-} from "@mui/material";
-import Search from "@mui/icons-material/Search";
-import OpenInNew from "@mui/icons-material/OpenInNew";
-import Add from "@mui/icons-material/Add";
-import Delete from "@mui/icons-material/Delete";
-import { TableContainer, Container, StyledTableCell, Header } from "./styles";
-import MainBody from "../../components/MainBody";
-import NoContent from "../../components/NoContent";
-import { ModalContext } from "../../App";
-import api from "../../api";
+} from '@mui/material';
+import Search from '@mui/icons-material/Search';
+import Add from '@mui/icons-material/Add';
+import { TableContainer, Container, StyledTableCell, Header } from './styles';
+import MainBody from '../../components/MainBody';
+import NoContent from '../../components/NoContent';
+import api from '../../api';
 
 const Vaccines = () => {
-  const { setModalState } = useContext(ModalContext);
+  // const { setModalState } = useContext(ModalContext);
 
   const [vaccines, setVaccines] = useState([]);
   const [allVaccines, setAllVaccines] = useState([]);
-  const [filterText, setFilterText] = useState("");
+  const [filterText, setFilterText] = useState('');
 
   const onFilter = ({ target: { value: name } }) => {
     setFilterText(name);
@@ -43,29 +39,29 @@ const Vaccines = () => {
     );
   };
 
-  const onDelete = (id) => () => {
-    api(`/vaccine/${id}`, { method: "DELETE" }).then((data) => {
-      if (!data.ok) {
-        setModalState({
-          isOpen: true,
-          title: "Erro ao deletar vacina!",
-          description:
-            "Revise os dados enviados ou entre em contato com o admin",
-        });
-        return;
-      }
+  // const onDelete = (id) => () => {
+  //   api(`/vaccine/${id}`, { method: 'DELETE' }).then((data) => {
+  //     if (!data.ok) {
+  //       setModalState({
+  //         isOpen: true,
+  //         title: 'Erro ao deletar vacina!',
+  //         description:
+  //           'Revise os dados enviados ou entre em contato com o admin',
+  //       });
+  //       return;
+  //     }
 
-      setModalState({
-        isOpen: true,
-        title: "Vacina deletada",
-        description: "Vacina deletada com sucesso!",
-        refresh: true,
-      });
-    });
-  };
+  //     setModalState({
+  //       isOpen: true,
+  //       title: 'Vacina deletada',
+  //       description: 'Vacina deletada com sucesso!',
+  //       refresh: true,
+  //     });
+  //   });
+  // };
 
   useEffect(() => {
-    api("/vaccine")
+    api('/vaccine')
       .then((data) => data.json())
       .then((data) => {
         setVaccines(data);
@@ -77,7 +73,7 @@ const Vaccines = () => {
     <MainBody title="Vacinas">
       <Container>
         <Header>
-          <FormControl fullWidth sx={{ p: 0.1, mb: 3, display: "flex" }}>
+          <FormControl fullWidth sx={{ p: 0.1, mb: 3, display: 'flex' }}>
             <InputLabel htmlFor="outlined-adornment-amount">
               Procurar vacinas
             </InputLabel>
@@ -94,7 +90,7 @@ const Vaccines = () => {
           </FormControl>
           <Link as={Link} to="/add/vaccine">
             <Button
-              sx={{ ml: 0.5, width: "100px", height: "56px" }}
+              sx={{ ml: 0.5, width: '100px', height: '56px' }}
               variant="contained"
             >
               Criar

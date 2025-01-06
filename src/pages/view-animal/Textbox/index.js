@@ -1,6 +1,6 @@
-import React from "react";
-import { Typography } from "@mui/material";
-import { Container } from "./styles";
+import React from 'react';
+import { Typography } from '@mui/material';
+import { Container } from './styles';
 
 const Texbox = ({ title, description }) => {
   return (
@@ -10,7 +10,7 @@ const Texbox = ({ title, description }) => {
         variant="h8"
         color="inherit"
         noWrap
-        sx={{ fontSize: "16px" }}
+        sx={{ fontSize: '16px' }}
       >
         {title}
       </Typography>

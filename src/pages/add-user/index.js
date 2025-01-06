@@ -1,70 +1,70 @@
-import React, { useContext } from "react";
-import { styled } from "@mui/material/styles";
+import React, { useContext } from 'react';
+import { styled } from '@mui/material/styles';
 import {
   TextField,
   Grid as MaterialGrid,
   Button,
   useMediaQuery,
-} from "@mui/material";
-import { useTheme } from "@material-ui/core/styles";
-import { Add } from "@mui/icons-material";
-import MainBody from "../../components/MainBody";
-import api from "../../api";
-import { ModalContext } from "../../App";
-import { SCROLLBAR_OBJ } from "../../styles";
+} from '@mui/material';
+import { useTheme } from '@material-ui/core/styles';
+import { Add } from '@mui/icons-material';
+import MainBody from '../../components/MainBody';
+import api from '../../api';
+import { ModalContext } from '../../App';
+import { SCROLLBAR_OBJ } from '../../styles';
 
-const Grid = styled(MaterialGrid)(({ theme }) => ({
-  maxHeight: "200px",
+const Grid = styled(MaterialGrid)(() => ({
+  maxHeight: '200px',
 }));
 
-const Form = styled(MaterialGrid)(({ theme }) => ({
-  overflow: "auto",
+const Form = styled(MaterialGrid)(() => ({
+  overflow: 'auto',
   ...SCROLLBAR_OBJ,
 }));
 
 const AddUser = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const { setModalState } = useContext(ModalContext);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    api("/systemAdmin", {
-      method: "POST",
+    api('/systemAdmin', {
+      method: 'POST',
       body: JSON.stringify({
-        firstName: data.get("firstName"),
-        lastName: data.get("lastName"),
-        cpf: data.get("cpf"),
-        username: data.get("username"),
-        password: data.get("password"),
+        firstName: data.get('firstName'),
+        lastName: data.get('lastName'),
+        cpf: data.get('cpf'),
+        username: data.get('username'),
+        password: data.get('password'),
       }),
     })
       .then((data) => {
         if (!data.ok) {
           setModalState({
             isOpen: true,
-            title: "Erro ao adicionar usuário!",
+            title: 'Erro ao adicionar usuário!',
             description:
-              "Revise os dados enviados ou entre em contato com o admin",
+              'Revise os dados enviados ou entre em contato com o admin',
           });
         }
       })
-      .then((data) => {
+      .then(() => {
         setModalState({
           isOpen: true,
-          title: "Usuário adicionado",
-          description: "Usuário adicionado com sucesso!",
-          link: "/",
+          title: 'Usuário adicionado',
+          description: 'Usuário adicionado com sucesso!',
+          link: '/',
         });
       })
       .catch(() => {
         setModalState({
           isOpen: true,
-          title: "Erro ao adicionar usuário!",
+          title: 'Erro ao adicionar usuário!',
           description:
-            "Revise os dados enviados ou entre em contato com o admin",
+            'Revise os dados enviados ou entre em contato com o admin',
         });
       });
   };
@@ -119,13 +119,13 @@ const AddUser = () => {
             required
           />
         </Grid>
-        <Grid item xs={12} sx={{ display: "flex", justifyContent: "flex-end" }}>
+        <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Button
             sx={{
               ml: 0.5,
-              width: "100px",
-              height: "56px",
-              ...(isMobile && { width: "100%" }),
+              width: '100px',
+              height: '56px',
+              ...(isMobile && { width: '100%' }),
             }}
             variant="contained"
             type="submit"

@@ -1,13 +1,13 @@
-import React, { useContext } from "react";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { GeneralStateContext, ModalContext } from "../../App";
-import api from "../../api";
+import React, { useContext } from 'react';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { GeneralStateContext, ModalContext } from '../../App';
+import api from '../../api';
 
 const theme = createTheme({});
 
@@ -19,29 +19,29 @@ const Login = () => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    api("/login", {
-      method: "POST",
+    api('/login', {
+      method: 'POST',
       body: JSON.stringify({
-        username: data.get("email"),
-        password: data.get("password"),
+        username: data.get('email'),
+        password: data.get('password'),
       }),
     })
       .then((data) => {
         if (!data.ok) {
-          throw new Error("Login error");
+          throw new Error('Login error');
         }
         return data.json();
       })
-      .then((data) => {
+      .then(() => {
         setGeneralState({ logged: true });
       })
       .catch(() => {
         setGeneralState({ logged: false });
         setModalState({
           isOpen: true,
-          title: "Erro ao fazer login!",
+          title: 'Erro ao fazer login!',
           description:
-            "Revise os dados enviados ou entre em contato com o admin",
+            'Revise os dados enviados ou entre em contato com o admin',
         });
         //TODO: modal de erro no login
       });
@@ -54,9 +54,9 @@ const Login = () => {
         <Box
           sx={{
             marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
           }}
         >
           <Typography component="h1" variant="h4">

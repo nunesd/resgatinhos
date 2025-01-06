@@ -1,66 +1,66 @@
-import React, { useContext } from "react";
-import { styled } from "@mui/material/styles";
+import React, { useContext } from 'react';
+import { styled } from '@mui/material/styles';
 import {
   Button,
   useMediaQuery,
   Grid as MaterialGrid,
   TextField,
-} from "@mui/material";
-import MainBody from "../../components/MainBody";
-import { ModalContext } from "../../App";
-import { useTheme } from "@material-ui/core/styles";
-import api from "../../api";
-import { Add } from "@mui/icons-material";
-import { SCROLLBAR_OBJ } from "../../styles";
+} from '@mui/material';
+import MainBody from '../../components/MainBody';
+import { ModalContext } from '../../App';
+import { useTheme } from '@material-ui/core/styles';
+import api from '../../api';
+import { Add } from '@mui/icons-material';
+import { SCROLLBAR_OBJ } from '../../styles';
 
-const Grid = styled(MaterialGrid)(({ theme }) => ({
-  maxHeight: "200px",
+const Grid = styled(MaterialGrid)(() => ({
+  maxHeight: '200px',
 }));
 
-const Form = styled(MaterialGrid)(({ theme }) => ({
-  overflow: "auto",
+const Form = styled(MaterialGrid)(() => ({
+  overflow: 'auto',
   ...SCROLLBAR_OBJ,
 }));
 
 const AddVaccine = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const { setModalState } = useContext(ModalContext);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    api("/vaccine", {
-      method: "POST",
+    api('/vaccine', {
+      method: 'POST',
       body: JSON.stringify({
-        vaccineName: data.get("vaccineName"),
+        vaccineName: data.get('vaccineName'),
       }),
     })
       .then((data) => {
         if (!data.ok) {
           setModalState({
             isOpen: true,
-            title: "Erro ao adicionar vacina!",
+            title: 'Erro ao adicionar vacina!',
             description:
-              "Revise os dados enviados ou entre em contato com o admin",
+              'Revise os dados enviados ou entre em contato com o admin',
           });
         }
       })
-      .then((data) => {
+      .then(() => {
         setModalState({
           isOpen: true,
-          title: "Vacina adicionada",
-          description: "Vacina adicionada com sucesso!",
-          link: "/vaccines",
+          title: 'Vacina adicionada',
+          description: 'Vacina adicionada com sucesso!',
+          link: '/vaccines',
         });
       })
       .catch(() => {
         setModalState({
           isOpen: true,
-          title: "Erro ao adicionar vacina!",
+          title: 'Erro ao adicionar vacina!',
           description:
-            "Revise os dados enviados ou entre em contato com o admin",
+            'Revise os dados enviados ou entre em contato com o admin',
         });
       });
   };
@@ -77,13 +77,13 @@ const AddVaccine = () => {
             name="vaccineName"
           />
         </Grid>
-        <Grid item xs={12} sx={{ display: "flex", justifyContent: "flex-end" }}>
+        <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Button
             sx={{
               ml: 0.5,
-              width: "100px",
-              height: "56px",
-              ...(isMobile && { width: "100%" }),
+              width: '100px',
+              height: '56px',
+              ...(isMobile && { width: '100%' }),
             }}
             variant="contained"
             type="submit"

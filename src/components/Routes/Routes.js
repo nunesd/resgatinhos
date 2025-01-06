@@ -1,21 +1,21 @@
-import React from "react";
-import { Switch } from "react-router";
-import Route from "./Route";
-import Login from "../../pages/login";
-import Vaccines from "../../pages/vaccine-list";
-import AnimalList from "../../pages/animal-list";
-import AdopterList from "../../pages/adopter-list";
-import AddAdopter from "../../pages/add-adopter";
-import AddAdoption from "../../pages/add-adoption";
-import AddVaccine from "../../pages/add-vaccine";
-import AddVaccination from "../../pages/add-vaccination";
-import AddUser from "../../pages/add-user";
-import AdoptionList from "../../pages/adoption-list";
-import AttendanceList from "../../pages/attendance-list";
-import AddAttendance from "../../pages/add-attendance";
-import AddAnimal from "../../pages/add-animal";
-import EditAnimal from "../../pages/edit-animal";
-import ViewAnimal from "../../pages/view-animal";
+import React from 'react';
+import { Switch } from 'react-router';
+import Route from './Route';
+import Login from '../../pages/login';
+import Vaccines from '../../pages/vaccine-list';
+import AnimalList from '../../pages/animal-list';
+import AdopterList from '../../pages/adopter-list';
+import AddAdopter from '../../pages/add-adopter';
+import AddAdoption from '../../pages/add-adoption';
+import AddVaccine from '../../pages/add-vaccine';
+import AddVaccination from '../../pages/add-vaccination';
+import AddUser from '../../pages/add-user';
+import AdoptionList from '../../pages/adoption-list';
+import AttendanceList from '../../pages/attendance-list';
+import AddAttendance from '../../pages/add-attendance';
+import AddAnimal from '../../pages/add-animal';
+import EditAnimal from '../../pages/edit-animal';
+import ViewAnimal from '../../pages/view-animal';
 
 const Routes = () => {
   return (

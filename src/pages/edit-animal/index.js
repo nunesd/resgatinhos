@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { styled } from "@mui/material/styles";
+import React, { useEffect, useState } from 'react';
+import { styled } from '@mui/material/styles';
 import {
   TextField,
   Grid as MaterialGrid,
@@ -9,22 +9,22 @@ import {
   Switch,
   Typography,
   InputAdornment,
-} from "@mui/material";
-import { useTheme } from "@material-ui/core/styles";
-import { Add } from "@mui/icons-material";
-import MainBody from "../../components/MainBody";
-import api from "../../api";
-import { DesktopDatePicker } from "@mui/lab";
-import { SCROLLBAR_OBJ } from "../../styles";
-import { useParams } from "react-router";
-import { DateTime } from "luxon";
+} from '@mui/material';
+import { useTheme } from '@material-ui/core/styles';
+import { Add } from '@mui/icons-material';
+import MainBody from '../../components/MainBody';
+import api from '../../api';
+import { DesktopDatePicker } from '@mui/lab';
+import { SCROLLBAR_OBJ } from '../../styles';
+import { useParams } from 'react-router';
+import { DateTime } from 'luxon';
 
-const Grid = styled(MaterialGrid)(({ theme }) => ({
-  maxHeight: "200px",
+const Grid = styled(MaterialGrid)(() => ({
+  maxHeight: '200px',
 }));
 
-const Form = styled(MaterialGrid)(({ theme }) => ({
-  overflow: "auto",
+const Form = styled(MaterialGrid)(() => ({
+  overflow: 'auto',
   ...SCROLLBAR_OBJ,
 }));
 
@@ -32,7 +32,7 @@ window.DateTime = DateTime;
 
 const EditAnimal = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   let { id } = useParams();
 
   const [animal, setAnimal] = useState({});
@@ -52,22 +52,22 @@ const EditAnimal = () => {
     const data = new FormData(event.currentTarget);
 
     api(`/animal/${id}`, {
-      method: "PUT",
+      method: 'PUT',
       body: JSON.stringify({
-        name: data.get("name"),
-        age: data.get("age"),
-        weight: data.get("weight"),
+        name: data.get('name'),
+        age: data.get('age'),
+        weight: data.get('weight'),
         rescueDate: rescueDate?.toLocaleString(),
         needAttendance,
-        attendanceDays: data.get("attendanceDays"),
-        attendanceReason: data.get("attendanceReason"),
+        attendanceDays: data.get('attendanceDays'),
+        attendanceReason: data.get('attendanceReason'),
         isCastrated,
         castrationDate: castrationDate?.toLocaleString(),
-        vetName: data.get("vetName"),
+        vetName: data.get('vetName'),
       }),
     })
       .then((data) => data.json())
-      .then((data) => {
+      .then(() => {
         // setGeneralState({ logged: true });
       });
   };
@@ -79,10 +79,10 @@ const EditAnimal = () => {
         .then((data) => {
           setAnimal(data);
           data.rescueDate &&
-            setRescueDate(DateTime.fromFormat(data.rescueDate, "dd/MM/yyyy"));
+            setRescueDate(DateTime.fromFormat(data.rescueDate, 'dd/MM/yyyy'));
           data.castrationDate &&
             setCastrationDate(
-              DateTime.fromFormat(data.castrationDate, "dd/MM/yyyy")
+              DateTime.fromFormat(data.castrationDate, 'dd/MM/yyyy')
             );
           data.isCastrated !== null && setIsCastrated(data.isCastrated);
           data.needAttendance !== null &&
@@ -111,7 +111,7 @@ const EditAnimal = () => {
             onChange={({ target: { value } }) => {
               setName(value);
             }}
-            placeholder={animal?.name !== undefined && "Carregando"}
+            placeholder={animal?.name !== undefined && 'Carregando'}
             label="Nome"
             name="name"
             InputProps={{
@@ -132,7 +132,7 @@ const EditAnimal = () => {
             }}
             label="Idade"
             name="age"
-            placeholder={animal?.age === undefined && "Carregando"}
+            placeholder={animal?.age === undefined && 'Carregando'}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start"></InputAdornment>
@@ -151,7 +151,7 @@ const EditAnimal = () => {
             }}
             label="Peso"
             name="weight"
-            placeholder={animal?.weight === undefined && "Carregando"}
+            placeholder={animal?.weight === undefined && 'Carregando'}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start"></InputAdornment>
@@ -215,7 +215,7 @@ const EditAnimal = () => {
             }}
             label="Veterinário que realizou a castração"
             name="vetName"
-            placeholder={animal?.vetName === undefined && "Carregando"}
+            placeholder={animal?.vetName === undefined && 'Carregando'}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start"></InputAdornment>
@@ -256,7 +256,7 @@ const EditAnimal = () => {
             onChange={(date) => {
               setAttendanceDays(date);
             }}
-            placeholder={animal?.vetName === undefined && "Carregando"}
+            placeholder={animal?.vetName === undefined && 'Carregando'}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start"></InputAdornment>
@@ -277,7 +277,7 @@ const EditAnimal = () => {
             type="password"
             label="Motivo do atendimento"
             name="attendanceReason"
-            placeholder={animal?.vetName === undefined && "Carregando"}
+            placeholder={animal?.vetName === undefined && 'Carregando'}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start"></InputAdornment>
@@ -286,13 +286,13 @@ const EditAnimal = () => {
             required
           />
         </Grid>
-        <Grid item xs={12} sx={{ display: "flex", justifyContent: "flex-end" }}>
+        <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Button
             sx={{
               ml: 0.5,
-              width: "120px",
-              height: "56px",
-              ...(isMobile && { width: "100%" }),
+              width: '120px',
+              height: '56px',
+              ...(isMobile && { width: '100%' }),
             }}
             variant="contained"
             type="submit"

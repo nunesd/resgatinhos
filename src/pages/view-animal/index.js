@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { styled } from "@mui/material/styles";
-import { Divider, Grid as MaterialGrid, Typography } from "@mui/material";
-import MainBody from "../../components/MainBody";
-import api from "../../api";
-import { SCROLLBAR_OBJ } from "../../styles";
-import Texbox from "./Textbox";
-import { useParams } from "react-router";
+import React, { useEffect, useState } from 'react';
+import { styled } from '@mui/material/styles';
+import { Divider, Grid as MaterialGrid, Typography } from '@mui/material';
+import MainBody from '../../components/MainBody';
+import api from '../../api';
+import { SCROLLBAR_OBJ } from '../../styles';
+import Texbox from './Textbox';
+import { useParams } from 'react-router';
 
-const Grid = styled(MaterialGrid)(({ theme }) => ({
-  maxHeight: "200px",
+const Grid = styled(MaterialGrid)(() => ({
+  maxHeight: '200px',
 }));
 
-const Form = styled(MaterialGrid)(({ theme }) => ({
-  overflow: "auto",
+const Form = styled(MaterialGrid)(() => ({
+  overflow: 'auto',
   ...SCROLLBAR_OBJ,
 }));
 
@@ -20,7 +20,7 @@ const AddAnimal = () => {
   let { id } = useParams();
   const [allAnimalInfos, setAllAnimalInfos] = useState({});
 
-  const getData = (data) => (data ? data : "-");
+  const getData = (data) => (data ? data : '-');
 
   useEffect(() => {
     api(`/animal/allAnimalInfos/${id}`)
@@ -83,7 +83,7 @@ const AddAnimal = () => {
         <Grid item xs={6} md={4} lg={3}>
           <Texbox
             title="é Castrado"
-            description={getData(animals?.isCastrated ? "Sim" : "Não")}
+            description={getData(animals?.isCastrated ? 'Sim' : 'Não')}
           />
         </Grid>
         <Grid item xs={6} md={4} lg={3}>
@@ -147,7 +147,7 @@ const AddAnimal = () => {
         <Grid item xs={6} lg={3}>
           <Texbox
             title="Precisou de atendimento médico"
-            description={getData(animals?.needAttendance ? "Sim" : "Não")}
+            description={getData(animals?.needAttendance ? 'Sim' : 'Não')}
           />
         </Grid>
         <Grid item xs={6} lg={3}>
@@ -178,7 +178,7 @@ const AddAnimal = () => {
             </Typography>
           </Grid>
         ) : (
-          ""
+          ''
         )}
         {vaccinations?.map((vacinnation) => (
           <>
@@ -224,7 +224,7 @@ const AddAnimal = () => {
             </Typography>
           </Grid>
         ) : (
-          ""
+          ''
         )}
         {attendances?.map((attendance) => (
           <>
@@ -238,7 +238,7 @@ const AddAnimal = () => {
               <Texbox
                 title="Precisou de atendimento médico"
                 description={getData(
-                  attendance?.needMedicalAppointment ? "Sim" : "Não"
+                  attendance?.needMedicalAppointment ? 'Sim' : 'Não'
                 )}
               />
             </Grid>
@@ -252,7 +252,7 @@ const AddAnimal = () => {
               <Texbox
                 title="Precisou de atendimento médico especializado"
                 description={getData(
-                  attendance?.specialistAttendanceReason ? "Sim" : "Não"
+                  attendance?.specialistAttendanceReason ? 'Sim' : 'Não'
                 )}
               />
             </Grid>

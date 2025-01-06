@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
-import { IconButton, Toolbar, Typography } from "@mui/material";
-import { Menu as MenuIcon, Logout } from "@mui/icons-material";
-import { StyledAppBar } from "./styles";
-import { GeneralStateContext } from "../../../App";
+import React, { useContext } from 'react';
+import { IconButton, Toolbar, Typography } from '@mui/material';
+import { Menu as MenuIcon, Logout } from '@mui/icons-material';
+import { StyledAppBar } from './styles';
+import { GeneralStateContext } from '../../../App';
 
 const Appbar = ({ isOpen, toggleDrawer, title }) => {
   const { setGeneralState } = useContext(GeneralStateContext);
@@ -15,7 +15,7 @@ const Appbar = ({ isOpen, toggleDrawer, title }) => {
     <StyledAppBar position="absolute" open={isOpen}>
       <Toolbar
         sx={{
-          pr: "24px",
+          pr: '24px',
         }}
       >
         <IconButton
@@ -24,8 +24,8 @@ const Appbar = ({ isOpen, toggleDrawer, title }) => {
           aria-label="open drawer"
           onClick={toggleDrawer}
           sx={{
-            marginRight: "36px",
-            ...(isOpen && { display: "none" }),
+            marginRight: '36px',
+            ...(isOpen && { display: 'none' }),
           }}
         >
           <MenuIcon />
@@ -45,7 +45,7 @@ const Appbar = ({ isOpen, toggleDrawer, title }) => {
           aria-label="open drawer"
           onClick={logout}
           sx={{
-            float: "right",
+            float: 'right',
           }}
         >
           <Logout />

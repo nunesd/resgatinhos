@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import { styled } from "@mui/material/styles";
+import React, { useContext, useEffect, useState } from 'react';
+import { styled } from '@mui/material/styles';
 import {
   TextField,
   Grid as MaterialGrid,
@@ -11,30 +11,30 @@ import {
   useTheme,
   Button,
   FormHelperText,
-} from "@mui/material";
-import MainBody from "../../components/MainBody";
-import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
-import api from "../../api";
-import Add from "@mui/icons-material/Add";
-import { SCROLLBAR_OBJ } from "../../styles";
-import { ModalContext } from "../../App";
+} from '@mui/material';
+import MainBody from '../../components/MainBody';
+import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
+import api from '../../api';
+import Add from '@mui/icons-material/Add';
+import { SCROLLBAR_OBJ } from '../../styles';
+import { ModalContext } from '../../App';
 
-const Grid = styled(MaterialGrid)(({ theme }) => ({
-  maxHeight: "200px",
+const Grid = styled(MaterialGrid)(() => ({
+  maxHeight: '200px',
 }));
 
-const Form = styled(MaterialGrid)(({ theme }) => ({
-  overflow: "auto",
+const Form = styled(MaterialGrid)(() => ({
+  overflow: 'auto',
   ...SCROLLBAR_OBJ,
 }));
 
-const FormControl = styled(MaterialFormControl)(({ theme }) => ({
+const FormControl = styled(MaterialFormControl)(() => ({
   maxWidth: 400,
 }));
 
 const AddAdoption = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const { setModalState } = useContext(ModalContext);
 
   const [animals, setAnimals] = useState([]);
@@ -57,10 +57,10 @@ const AddAdoption = () => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     api(`/adoption/animal/${animalSelected}/adopter/${adopterSelected}`, {
-      method: "POST",
+      method: 'POST',
       body: JSON.stringify({
-        animalStatus: data.get("animalStatus"),
-        animalNewName: data.get("animalNewName"),
+        animalStatus: data.get('animalStatus'),
+        animalNewName: data.get('animalNewName'),
         adoptionDate: date.toLocaleDateString(),
       }),
     })
@@ -68,33 +68,33 @@ const AddAdoption = () => {
         if (!data.ok) {
           setModalState({
             isOpen: true,
-            title: "Erro ao adicionar adoção!",
+            title: 'Erro ao adicionar adoção!',
             description:
-              "Revise os dados enviados ou entre em contato com o admin",
+              'Revise os dados enviados ou entre em contato com o admin',
           });
         }
       })
-      .then((data) => {
+      .then(() => {
         setModalState({
           isOpen: true,
-          title: "Adotante adicionado",
-          description: "Adotante adicionado com sucesso!",
-          link: "/adopters",
+          title: 'Adotante adicionado',
+          description: 'Adotante adicionado com sucesso!',
+          link: '/adopters',
         });
       })
       .catch(() => {
         setModalState({
           isOpen: true,
-          title: "Erro ao adicionar adoção!",
+          title: 'Erro ao adicionar adoção!',
           description:
-            "Revise os dados enviados ou entre em contato com o admin",
+            'Revise os dados enviados ou entre em contato com o admin',
         });
       });
   };
 
   useEffect(() => {
     const getAnimals = async () => {
-      await api("/animal", {})
+      await api('/animal', {})
         .then((data) => data.json())
         .then((data) => {
           setAnimals(data);
@@ -104,7 +104,7 @@ const AddAdoption = () => {
         });
     };
     const getAdopters = async () => {
-      await api("/adopter", {})
+      await api('/adopter', {})
         .then((data) => data.json())
         .then((data) => {
           setAdopters(data);
@@ -124,13 +124,13 @@ const AddAdoption = () => {
         <Grid item xs={12} md={6} lg={4}>
           <FormControl fullWidth error={!animals.length}>
             <InputLabel id="demo-simple-select-helper-label">
-              {!!animals.length ? "Nenhum animal encontrado" : "Animal"}
+              {animals.length ? 'Nenhum animal encontrado' : 'Animal'}
             </InputLabel>
             <Select
               labelId="demo-simple-select-helper-label"
               id="demo-simple-select-helper"
               value={animalSelected}
-              label={!animals.length ? "Nenhum animal encontrado" : "Animal"}
+              label={!animals.length ? 'Nenhum animal encontrado' : 'Animal'}
               onChange={handleAnimalSelected}
             >
               {animals.map((animal) => (
@@ -139,7 +139,7 @@ const AddAdoption = () => {
                 </MenuItem>
               ))}
             </Select>
-            {!Boolean(animals.length) && (
+            {!animals.length && (
               <FormHelperText>
                 Para criar uma adoção, é preciso ter uma animal cadastrado
               </FormHelperText>
@@ -149,14 +149,14 @@ const AddAdoption = () => {
         <Grid item xs={12} md={6} lg={4}>
           <FormControl fullWidth error={!adopters.length}>
             <InputLabel id="demo-simple-select-helper-label">
-              {!adopters.length ? "Nenhum adotante encontrado" : "Adotante"}
+              {!adopters.length ? 'Nenhum adotante encontrado' : 'Adotante'}
             </InputLabel>
             <Select
               labelId="demo-simple-select-helper-label"
               id="demo-simple-select-helper"
               value={adopterSelected}
               label={
-                !adopters.length ? "Nenhum adotante encontrado" : "Adotante"
+                !adopters.length ? 'Nenhum adotante encontrado' : 'Adotante'
               }
               onChange={handleAdopterSelected}
             >
@@ -167,7 +167,7 @@ const AddAdoption = () => {
               ))}
             </Select>
 
-            {!Boolean(adopters.length) && (
+            {!adopters.length && (
               <FormHelperText>
                 Para criar uma adoção, é preciso ter uma adotante cadastrado
               </FormHelperText>
@@ -203,13 +203,13 @@ const AddAdoption = () => {
             rows={4}
           />
         </Grid>
-        <Grid item xs={12} sx={{ display: "flex", justifyContent: "flex-end" }}>
+        <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Button
             sx={{
               ml: 0.5,
-              width: "100px",
-              height: "56px",
-              ...(isMobile && { width: "100%" }),
+              width: '100px',
+              height: '56px',
+              ...(isMobile && { width: '100%' }),
             }}
             variant="contained"
             type="submit"

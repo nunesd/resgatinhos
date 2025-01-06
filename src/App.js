@@ -1,29 +1,23 @@
-import React, { createContext, useState } from "react";
-import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import Routes from "./components/Routes/Routes";
-import Modal from "./components/Modal";
-import useLocalStorageState from "./helpers/localStorage";
+import React, { createContext, useState } from 'react';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import Routes from './components/Routes/Routes';
+import Modal from './components/Modal';
+import useLocalStorageState from './helpers/localStorage';
 
-export const GeneralStateContext = createContext({
-  generalState: {},
-  setGeneralState: () => {},
-});
+export const GeneralStateContext = createContext({});
 
-export const ModalContext = createContext({
-  modalState: {},
-  handleClose: () => {},
-});
+export const ModalContext = createContext({});
 
 const defaultModalState = {
   isOpen: false,
-  title: "",
-  description: "",
-  link: "",
+  title: '',
+  description: '',
+  link: '',
 };
 
 const App = () => {
-  const [isLogged, setIsLogged] = useLocalStorageState("isLogged", false);
+  const [isLogged, setIsLogged] = useLocalStorageState('isLogged', false);
   const [generalState, setGeneralState] = useState({ logged: isLogged });
   const [modalState, setModalState] = useState(defaultModalState);
 

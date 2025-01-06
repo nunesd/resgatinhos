@@ -4,3 +4,4 @@ dist/
 
 # Ignore specific files:
 package-lock.json
+server.js
