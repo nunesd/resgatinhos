@@ -16,7 +16,6 @@ import {
 } from '@mui/material';
 import Search from '@mui/icons-material/Search';
 import Add from '@mui/icons-material/Add';
-import Delete from '@mui/icons-material/Delete';
 import MainBody from '../../components/MainBody';
 import NoContent from '../../components/NoContent';
 import { ModalContext } from '../../App';
@@ -45,26 +44,26 @@ const Adoptions = () => {
     );
   };
 
-  const onDelete = (id) => () => {
-    api(`/adoption/${id}`, { method: 'DELETE' }).then((data) => {
-      if (!data.ok) {
-        setModalState({
-          isOpen: true,
-          title: 'Erro ao deletar adoção!',
-          description:
-            'Revise os dados enviados ou entre em contato com o admin',
-        });
-        return;
-      }
+  // const onDelete = (id) => () => {
+  //   api(`/adoption/${id}`, { method: 'DELETE' }).then((data) => {
+  //     if (!data.ok) {
+  //       setModalState({
+  //         isOpen: true,
+  //         title: 'Erro ao deletar adoção!',
+  //         description:
+  //           'Revise os dados enviados ou entre em contato com o admin',
+  //       });
+  //       return;
+  //     }
 
-      setModalState({
-        isOpen: true,
-        title: 'Adoção deletada',
-        description: 'Adoção deletada com sucesso!',
-        refresh: true,
-      });
-    });
-  };
+  //     setModalState({
+  //       isOpen: true,
+  //       title: 'Adoção deletada',
+  //       description: 'Adoção deletada com sucesso!',
+  //       refresh: true,
+  //     });
+  //   });
+  // };
 
   useEffect(() => {
     api('/adoption', {})
